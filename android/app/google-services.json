@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "682020472681",
+    "project_id": "pptac-attendance-capstone",
+    "storage_bucket": "pptac-attendance-capstone.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:682020472681:android:7906687f15435a1f151ff8",
+        "android_client_info": {
+          "package_name": "com.example.last"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUoaz8xCr9lvWcdd4Dw26l9WxA1jDSPrk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

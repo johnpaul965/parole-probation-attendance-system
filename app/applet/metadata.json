@@ -1,0 +1,9 @@
+{
+  "name": "Parole & Probation Attendance & Tracking System",
+  "description": "Comprehensive parole and probation supervision platform with QR check-in, scheduled activities, GPS tracking & geofencing, officer analytics, and compliance reporting.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera"
+  ],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
