@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide AuthException;
 import 'package:last/core/services/session_service.dart';
 import 'package:last/core/utils/supabase_config.dart';
