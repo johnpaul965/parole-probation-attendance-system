@@ -112,6 +112,7 @@ class _ParoleeProfileScreenState extends State<ParoleeProfileScreen> {
   }
 
   AttendanceStatus? get _attendanceStatus => widget.paroleeSummary?.status;
+
   bool get requesterIsOfficer =>
       context.read<AuthProvider>().user?.role == UserRole.officer;
 
@@ -360,6 +361,7 @@ class _ParoleeProfileScreenState extends State<ParoleeProfileScreen> {
 
 class _TrackerDeviceData {
   const _TrackerDeviceData({this.tracker, this.status});
+
   final GpsTracker? tracker;
   final TrackingStatus? status;
 
@@ -382,6 +384,7 @@ class _TrackerDeviceData {
 
 class _ProfileHeader extends StatelessWidget {
   const _ProfileHeader({required this.parolee, this.attendanceStatus});
+
   final AppUser parolee;
   final AttendanceStatus? attendanceStatus;
 
@@ -426,6 +429,7 @@ class _ProfileHeader extends StatelessWidget {
 
 class _InfoSection extends StatelessWidget {
   const _InfoSection({required this.title, required this.rows});
+
   final String title;
   final List<_InfoRow> rows;
 
@@ -474,6 +478,7 @@ class _InfoSection extends StatelessWidget {
 
 class _InfoRow {
   const _InfoRow(this.label, this.value);
+
   final String label;
   final String value;
 }

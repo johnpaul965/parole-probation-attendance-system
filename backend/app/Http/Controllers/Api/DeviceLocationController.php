@@ -40,6 +40,7 @@ class DeviceLocationController extends Controller
             ], 201);
         } catch (InvalidArgumentException $e) {
             $status = str_contains($e->getMessage(), 'Duplicate') ? 409 : 422;
+
             return response()->json(['message' => $e->getMessage()], $status);
         }
     }

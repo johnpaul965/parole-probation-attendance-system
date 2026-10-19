@@ -3,6 +3,7 @@
 REST API for Arduino/ESP32 GPS devices and officer tracking endpoints.
 
 ## Setup
+
 ```bash
 cd backend
 composer install
@@ -13,6 +14,7 @@ php artisan serve
 ```
 
 ## Device Authentication
+
 Devices authenticate with:
 - `device_id` in JSON body or `X-Device-Id` header
 - API token via `Authorization: Bearer <token>` or `X-Device-Token` header
@@ -20,6 +22,7 @@ Devices authenticate with:
 Tokens are hashed (`api_token_hash`) in the database. Plain tokens are shown only once at device registration or credential rotation.
 
 ## Device Location Endpoint
+
 ```http
 POST /api/device/location
 Authorization: Bearer <device_api_token>
@@ -39,6 +42,7 @@ Content-Type: application/json
 The backend determines the assigned parolee from the authenticated `device_id`. Never trust `parolee_id` from the device payload.
 
 ## Officer Endpoints
+
 Requires authenticated officer (Laravel Sanctum).
 
 | Method | Endpoint |
@@ -57,6 +61,7 @@ Requires authenticated officer (Laravel Sanctum).
 Officers receive `403 Forbidden` when accessing parolees not assigned to them.
 
 ## Configuration (`config/tracking.php`)
+
 | Key | Default | Description |
 |-----|---------|-------------|
 | `offline_threshold_minutes` | 2 | Online if `last_seen_at` within threshold |
@@ -66,4 +71,5 @@ Officers receive `403 Forbidden` when accessing parolees not assigned to them.
 | `duplicate_location_window_seconds` | 30 | Reject duplicate coordinates |
 
 ## Flutter Integration
+
 The Flutter app uses Firebase Firestore as its primary backend. This Laravel API is the standardized REST layer for IoT hardware. Configure `TRACKING_API_BASE_URL` in Flutter when deploying the Laravel backend alongside Firebase.

@@ -48,6 +48,7 @@ class Device extends Model
         }
 
         $threshold = now()->subMinutes(config('tracking.offline_threshold_minutes', 2));
+
         return $this->last_seen_at->greaterThanOrEqualTo($threshold);
     }
 }

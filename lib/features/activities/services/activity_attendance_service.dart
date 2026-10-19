@@ -96,6 +96,7 @@ class ActivityAttendanceService {
     if (officer.role != UserRole.officer) {
       return const ActivityScanResult.failure('Only officers can mark activity attendance');
     }
+
     final decoded = ActivityQrPayload.decode(rawQr);
     if (decoded == null || decoded.token.isEmpty) {
       return const ActivityScanResult.failure('Invalid QR code format');
@@ -120,6 +121,7 @@ class ActivityAttendanceService {
     if (!activity.isAssignedTo(payload.paroleeId)) {
       return const ActivityScanResult.failure('Parolee is not assigned to this activity');
     }
+
     final existing = await getForParoleeActivity(expectedActivityId, payload.paroleeId);
     if (existing != null &&
         existing.status.countsAsPresent &&
@@ -128,6 +130,7 @@ class ActivityAttendanceService {
         '${existing.paroleeName} is already marked ${existing.status.label}',
       );
     }
+
     try {
       final now = DateTime.now();
       final id = existing?.id ?? const Uuid().v4();
@@ -143,14 +146,18 @@ class ActivityAttendanceService {
         timestamp: payload.timestamp,
         activityTitle: activity.title,
       );
+
       await _db.collection(FirestoreCollections.activityAttendance).doc(id).set(record.toMap());
+
       await _syncActivityCompletion(activity, payload.paroleeId, status);
+
       await _notify(
         userId: payload.paroleeId,
         title: 'Activity Attendance Recorded',
         body: 'Your attendance for ${activity.title} was marked ${status.label} by your officer.',
         type: NotificationType.success,
       );
+
       return ActivityScanResult.success(record);
     } catch (e) {
       return ActivityScanResult.failure('Failed to save attendance: $e');
@@ -168,6 +175,7 @@ class ActivityAttendanceService {
     } else if (status == ActivityParticipationStatus.absent) {
       completed.remove(paroleeId);
     }
+
     var activityStatus = activity.status;
     if (completed.length >= activity.assignedParoleeIds.length &&
         activity.assignedParoleeIds.isNotEmpty) {
@@ -175,6 +183,7 @@ class ActivityAttendanceService {
     } else if (activity.status == ActivityStatus.pending) {
       activityStatus = ActivityStatus.ongoing;
     }
+
     await _db.collection(FirestoreCollections.activities).doc(activity.id).update({
       'completedParolees': completed,
       'status': activityStatus.name,

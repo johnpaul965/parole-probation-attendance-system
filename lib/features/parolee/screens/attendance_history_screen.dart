@@ -65,7 +65,7 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
                             title: Text(r.ticketId, style: const TextStyle(fontWeight: FontWeight.w600)),
                             subtitle: Text(
                               r.checkInTime != null
-                                  ? DateFormat('MMM d, y • h:mm a').format(r.checkInTime!)
+                                  ? DateFormat('MMM d, y · h:mm a').format(r.checkInTime!)
                                   : r.location ?? '',
                             ),
                             trailing: StatusBadge(status: r.status),

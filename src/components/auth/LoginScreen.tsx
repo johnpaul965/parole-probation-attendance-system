@@ -29,6 +29,7 @@ export const LoginScreen: React.FC = () => {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
+
     try {
       await login(email, password, role);
     } catch (err: any) {
@@ -58,7 +59,7 @@ export const LoginScreen: React.FC = () => {
           <button
             type="button"
             onClick={() => handleRoleChange('officer')}
-            className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${
               role === 'officer'
                 ? 'bg-blue-600 text-white shadow-xs'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
@@ -69,7 +70,7 @@ export const LoginScreen: React.FC = () => {
           <button
             type="button"
             onClick={() => handleRoleChange('parolee')}
-            className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${
               role === 'parolee'
                 ? 'bg-indigo-900 text-white shadow-xs'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
@@ -120,7 +121,7 @@ export const LoginScreen: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
@@ -136,7 +137,7 @@ export const LoginScreen: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleRoleChange('officer')}
-                className={`flex-1 p-2 rounded-lg text-[11px] font-semibold border text-left transition-colors cursor-pointer ${
+                className={`flex-1 p-2 rounded-lg text-[11px] font-semibold border text-left transition-colors ${
                   role === 'officer'
                     ? 'bg-blue-50 border-blue-300 text-blue-900'
                     : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
@@ -148,7 +149,7 @@ export const LoginScreen: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleRoleChange('parolee')}
-                className={`flex-1 p-2 rounded-lg text-[11px] font-semibold border text-left transition-colors cursor-pointer ${
+                className={`flex-1 p-2 rounded-lg text-[11px] font-semibold border text-left transition-colors ${
                   role === 'parolee'
                     ? 'bg-indigo-50 border-indigo-300 text-indigo-900'
                     : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
@@ -163,7 +164,7 @@ export const LoginScreen: React.FC = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full py-3 text-white rounded-xl font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2 mt-4 cursor-pointer ${
+            className={`w-full py-3 text-white rounded-xl font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2 mt-4 ${
               role === 'officer'
                 ? 'bg-blue-600 hover:bg-blue-700'
                 : 'bg-indigo-900 hover:bg-indigo-950'

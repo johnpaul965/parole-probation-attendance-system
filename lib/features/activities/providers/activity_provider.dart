@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:last/features/activities/models/activity_model.dart';
 import 'package:last/features/activities/services/activity_service.dart';
@@ -8,6 +9,7 @@ class ActivityProvider extends ChangeNotifier {
       : _service = service ?? ActivityService();
 
   final ActivityService _service;
+
   List<ActivityModel> _activities = [];
   ActivityStats _stats = const ActivityStats(
     total: 0,
@@ -99,6 +101,7 @@ class ActivityProvider extends ChangeNotifier {
         notifyListeners();
       },
     );
+
     _statsSub = _service.watchStats(officerId: officerId).listen((s) {
       _stats = s;
       notifyListeners();
@@ -145,6 +148,7 @@ class ActivityProvider extends ChangeNotifier {
         notifyListeners();
       },
     );
+
     _statsSub = _service.watchStats().listen((s) {
       _stats = s;
       notifyListeners();

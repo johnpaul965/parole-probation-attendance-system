@@ -64,9 +64,10 @@ export const ReportsScreen: React.FC = () => {
             Official compliance auditing, monthly reporting periods, and printable PPA reports
           </p>
         </div>
+
         <button
           onClick={() => setShowPreviewModal(true)}
-          className="px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold rounded-xl text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 self-start sm:self-auto cursor-pointer"
+          className="px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold rounded-xl text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 self-start sm:self-auto"
         >
           <FileSpreadsheet className="w-4 h-4" />
           <span>Export Official PDF Report</span>
@@ -84,6 +85,7 @@ export const ReportsScreen: React.FC = () => {
             <TrendingUp className="w-3.5 h-3.5 text-emerald-500" /> On-time check-ins
           </span>
         </div>
+
         <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-xs">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
             Attendance Rate
@@ -91,6 +93,7 @@ export const ReportsScreen: React.FC = () => {
           <p className="text-2xl font-bold text-blue-600">{attendanceRate}%</p>
           <span className="text-[11px] text-slate-500 mt-1 block">Active participation</span>
         </div>
+
         <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-xs">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
             Verified Check-ins
@@ -98,6 +101,7 @@ export const ReportsScreen: React.FC = () => {
           <p className="text-2xl font-bold text-slate-900">{totalCheckIns}</p>
           <span className="text-[11px] text-emerald-600 mt-1 block font-medium">QR Scans recorded</span>
         </div>
+
         <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-xs">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
             Missed Check-ins
@@ -105,6 +109,7 @@ export const ReportsScreen: React.FC = () => {
           <p className="text-2xl font-bold text-rose-600">{missedCount}</p>
           <span className="text-[11px] text-slate-500 mt-1 block">Flagged for review</span>
         </div>
+
         <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-xs">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
             Pending Scheduled
@@ -122,6 +127,7 @@ export const ReportsScreen: React.FC = () => {
             <h3 className="font-bold text-sm text-slate-800">Weekly Attendance & Punctuality</h3>
             <span className="text-xs text-slate-500">Current Week</span>
           </div>
+
           <div className="mt-6 flex items-end justify-between h-44 pt-4 px-2">
             {weeklyData.map((d) => (
               <div key={d.day} className="flex flex-col items-center gap-2 flex-1">
@@ -143,6 +149,7 @@ export const ReportsScreen: React.FC = () => {
               </div>
             ))}
           </div>
+
           <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-center gap-6 text-xs text-slate-600">
             <div className="flex items-center gap-1.5">
               <span className="w-3 h-3 rounded-sm bg-emerald-600"></span>
@@ -161,6 +168,7 @@ export const ReportsScreen: React.FC = () => {
             <h3 className="font-bold text-sm text-slate-800">Monthly Compliance Trend (%)</h3>
             <span className="text-xs text-slate-500">Last 6 Months</span>
           </div>
+
           <div className="mt-6 flex items-end justify-between h-44 pt-4 px-2">
             {monthlyData.map((m) => (
               <div key={m.month} className="flex flex-col items-center gap-2 flex-1">
@@ -175,6 +183,7 @@ export const ReportsScreen: React.FC = () => {
               </div>
             ))}
           </div>
+
           <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-center text-xs text-slate-500">
             <span>Target benchmark: 85% compliance threshold</span>
           </div>
@@ -194,13 +203,13 @@ export const ReportsScreen: React.FC = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={handlePrint}
-                  className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer"
+                  className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors"
                 >
                   <Printer className="w-4 h-4" /> Print / Save PDF
                 </button>
                 <button
                   onClick={() => setShowPreviewModal(false)}
-                  className="p-1.5 rounded-lg text-white/80 hover:text-white cursor-pointer"
+                  className="p-1.5 rounded-lg text-white/80 hover:text-white"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -297,13 +306,13 @@ export const ReportsScreen: React.FC = () => {
             <div className="bg-slate-50 px-6 py-3 border-t border-slate-200 flex items-center justify-end gap-2 shrink-0">
               <button
                 onClick={() => setShowPreviewModal(false)}
-                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold cursor-pointer"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold"
               >
                 Close
               </button>
               <button
                 onClick={handlePrint}
-                className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-xs cursor-pointer"
+                className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-xs"
               >
                 <Printer className="w-4 h-4" /> Print Document
               </button>

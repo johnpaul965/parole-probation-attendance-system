@@ -25,9 +25,10 @@ export const ParoleeActivities: React.FC<Props> = ({ onNavigate }) => {
             Mandatory community service, coastal rehabilitation, and counseling sessions assigned to you
           </p>
         </div>
+
         <button
           onClick={() => onNavigate('check-in')}
-          className="px-4 py-2.5 bg-indigo-700 hover:bg-indigo-800 text-white font-semibold rounded-xl text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 self-start sm:self-auto cursor-pointer"
+          className="px-4 py-2.5 bg-indigo-700 hover:bg-indigo-800 text-white font-semibold rounded-xl text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 self-start sm:self-auto"
         >
           <QrCode className="w-4 h-4" />
           <span>Show Check-in QR</span>
@@ -63,8 +64,10 @@ export const ParoleeActivities: React.FC<Props> = ({ onNavigate }) => {
                       {isCompleted ? 'Completed' : act.status}
                     </span>
                   </div>
+
                   <h3 className="font-bold text-base text-slate-900 mt-2">{act.title}</h3>
                   <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">{act.description}</p>
+
                   <div className="mt-4 pt-3 border-t border-slate-100 space-y-1.5 text-xs text-slate-600">
                     <p className="flex items-center gap-2">
                       <Clock className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
@@ -98,7 +101,7 @@ export const ParoleeActivities: React.FC<Props> = ({ onNavigate }) => {
                   ) : (
                     <button
                       onClick={() => onNavigate('check-in')}
-                      className="w-full py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 rounded-lg text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="w-full py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 rounded-lg text-xs font-semibold transition-colors flex items-center justify-center gap-1.5"
                     >
                       <QrCode className="w-3.5 h-3.5" />
                       <span>Present Check-in QR</span>

@@ -29,7 +29,7 @@ class ParoleeActivityQrCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dateFmt = DateFormat('EEE, MMM d, yyyy • h:mm a');
+    final dateFmt = DateFormat('EEE, MMM d, yyyy · h:mm a');
     final qrData = qr?.encode();
 
     return Card(

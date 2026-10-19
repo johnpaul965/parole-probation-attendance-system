@@ -19,6 +19,7 @@ import {
 
 export const ActivitiesManagement: React.FC = () => {
   const { activities, users, createActivity, updateActivityStatus, markAttendanceManual } = useApp();
+
   const [activeTab, setActiveTab] = useState<ActivityStatus | 'all'>('all');
   const [selectedActivity, setSelectedActivity] = useState<ActivityModel | null>(activities[0] || null);
 
@@ -83,9 +84,10 @@ export const ActivitiesManagement: React.FC = () => {
             Organize tree planting, community clean-ups, counseling sessions, and scan check-in QR tickets
           </p>
         </div>
+
         <button
           onClick={() => setShowCreateModal(true)}
-          className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 self-start sm:self-auto cursor-pointer"
+          className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Create Activity</span>
@@ -96,7 +98,7 @@ export const ActivitiesManagement: React.FC = () => {
       <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-xl w-fit">
         <button
           onClick={() => setActiveTab('all')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
             activeTab === 'all' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
           }`}
         >
@@ -104,7 +106,7 @@ export const ActivitiesManagement: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab('pending')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
             activeTab === 'pending' ? 'bg-white text-amber-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
           }`}
         >
@@ -112,7 +114,7 @@ export const ActivitiesManagement: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab('ongoing')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
             activeTab === 'ongoing' ? 'bg-white text-blue-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
           }`}
         >
@@ -120,7 +122,7 @@ export const ActivitiesManagement: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab('completed')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
             activeTab === 'completed' ? 'bg-white text-emerald-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
           }`}
         >
@@ -144,6 +146,7 @@ export const ActivitiesManagement: React.FC = () => {
                   ? (act.completedParoleeIds.length / act.assignedParoleeIds.length) * 100
                   : 0
               );
+
               return (
                 <div
                   key={act.id}
@@ -170,8 +173,10 @@ export const ActivitiesManagement: React.FC = () => {
                       {new Date(act.scheduleDate).toLocaleDateString([], { month: 'short', day: 'numeric' })}
                     </span>
                   </div>
+
                   <h3 className="font-bold text-sm text-slate-900 mt-2 line-clamp-1">{act.title}</h3>
                   <p className="text-xs text-slate-500 line-clamp-2 mt-1">{act.description}</p>
+
                   <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
                     <span className="flex items-center gap-1">
                       <Users className="w-3.5 h-3.5" /> {act.assignedParoleeIds.length} Assigned
@@ -198,10 +203,11 @@ export const ActivitiesManagement: React.FC = () => {
                 </div>
                 <h2 className="text-xl font-bold text-slate-900 mt-1">{selectedActivity.title}</h2>
               </div>
+
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setIsScannerOpen(true)}
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold shadow-md transition-colors flex items-center gap-2 cursor-pointer"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold shadow-md transition-colors flex items-center gap-2"
                 >
                   <QrCode className="w-4 h-4" />
                   <span>Scan QR for this Activity</span>
@@ -217,6 +223,7 @@ export const ActivitiesManagement: React.FC = () => {
                 </span>
                 <span className="font-semibold text-slate-900">{selectedActivity.location}</span>
               </div>
+
               <div className="p-3 bg-slate-50 rounded-xl border border-slate-100">
                 <span className="text-slate-400 block mb-0.5 flex items-center gap-1">
                   <Clock className="w-3.5 h-3.5 text-blue-600" /> Scheduled Date & Time
@@ -231,6 +238,7 @@ export const ActivitiesManagement: React.FC = () => {
                   })}
                 </span>
               </div>
+
               <div className="p-3 bg-slate-50 rounded-xl border border-slate-100">
                 <span className="text-slate-400 block mb-0.5 flex items-center gap-1">
                   <Users className="w-3.5 h-3.5 text-blue-600" /> Supervising Officer
@@ -257,10 +265,12 @@ export const ActivitiesManagement: React.FC = () => {
                   {selectedActivity.completedParoleeIds.length} of {selectedActivity.assignedParoleeIds.length} Verified
                 </span>
               </div>
+
               <div className="divide-y divide-slate-100 border border-slate-200 rounded-xl overflow-hidden">
                 {selectedActivity.assignedParoleeIds.map((pId) => {
                   const parolee = users.find((u) => u.id === pId);
                   const isCheckedIn = selectedActivity.completedParoleeIds.includes(pId);
+
                   return (
                     <div
                       key={pId}
@@ -275,6 +285,7 @@ export const ActivitiesManagement: React.FC = () => {
                           <p className="text-[11px] text-slate-500">Case: {parolee?.caseNumber || 'N/A'}</p>
                         </div>
                       </div>
+
                       <div className="flex items-center gap-2">
                         {isCheckedIn ? (
                           <span className="inline-flex items-center gap-1 font-semibold text-emerald-700 px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200">
@@ -287,7 +298,7 @@ export const ActivitiesManagement: React.FC = () => {
                             </span>
                             <button
                               onClick={() => markAttendanceManual(selectedActivity.id, pId, 'checkedIn')}
-                              className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg text-[11px] transition-colors cursor-pointer"
+                              className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg text-[11px] transition-colors"
                             >
                               Verify Manually
                             </button>
@@ -312,10 +323,11 @@ export const ActivitiesManagement: React.FC = () => {
           >
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <h3 className="font-bold text-base text-slate-900">Create New Rehabilitation Activity</h3>
-              <button onClick={() => setShowCreateModal(false)} className="text-slate-400 hover:text-slate-600 cursor-pointer">
+              <button onClick={() => setShowCreateModal(false)} className="text-slate-400 hover:text-slate-600">
                 <X className="w-5 h-5" />
               </button>
             </div>
+
             <div className="mt-4 space-y-3.5 text-xs">
               <div>
                 <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Activity Type</label>
@@ -330,6 +342,7 @@ export const ActivitiesManagement: React.FC = () => {
                   <option value="other">Other Community Service</option>
                 </select>
               </div>
+
               <div>
                 <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Activity Title</label>
                 <input
@@ -341,6 +354,7 @@ export const ActivitiesManagement: React.FC = () => {
                   required
                 />
               </div>
+
               <div>
                 <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Description & Requirements</label>
                 <textarea
@@ -352,6 +366,7 @@ export const ActivitiesManagement: React.FC = () => {
                   required
                 />
               </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Location</label>
@@ -374,6 +389,7 @@ export const ActivitiesManagement: React.FC = () => {
                   />
                 </div>
               </div>
+
               {/* Assign Parolees Checkbox List */}
               <div>
                 <label className="block text-xs font-semibold text-slate-500 uppercase mb-1.5">
@@ -405,17 +421,18 @@ export const ActivitiesManagement: React.FC = () => {
                 </div>
               </div>
             </div>
+
             <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
               <button
                 type="button"
                 onClick={() => setShowCreateModal(false)}
-                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-semibold cursor-pointer"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-semibold"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold transition-colors cursor-pointer"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold transition-colors"
               >
                 Create Activity
               </button>

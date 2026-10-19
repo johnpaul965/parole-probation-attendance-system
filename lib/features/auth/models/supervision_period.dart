@@ -111,7 +111,6 @@ class SupervisionPeriod {
     if (today.isAfter(end)) {
       return SupervisionSnapshot(status: SupervisionStatus.completed, start: start, end: end);
     }
-
     return SupervisionSnapshot(
       status: SupervisionStatus.active,
       start: start,

@@ -1,8 +1,8 @@
 class TrackingConfig {
-  /// No location received within this window -> OFFLINE (configurable).
+  /// No location received within this window → OFFLINE (configurable).
   static const Duration offlineTimeout = Duration(minutes: 2);
 
-  /// Battery below this percentage -> LOW_BATTERY.
+  /// Battery below this percentage → LOW_BATTERY.
   static const int lowBatteryThreshold = 20;
 
   /// Officer client refresh interval (Firestore snapshot preferred; fallback poll).
@@ -37,7 +37,7 @@ class TrackingConfig {
   /// Reject duplicate GPS within this window.
   static const Duration duplicateLocationWindow = Duration(seconds: 30);
 
-  /// Historical GPS retention (days) – configure per deployment.
+  /// Historical GPS retention (days) — configure per deployment.
   static const int locationRetentionDays = 90;
 
   /// Tacloban City center for mock tracking.

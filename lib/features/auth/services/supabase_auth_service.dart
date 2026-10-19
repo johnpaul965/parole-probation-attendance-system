@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide AuthException;
 import 'package:last/core/services/session_service.dart';
 import 'package:last/core/utils/supabase_config.dart';
@@ -18,6 +19,7 @@ class SupabaseAuthService implements AuthService {
   @override
   Stream<AppUser?> get authStateChanges {
     final controller = StreamController<AppUser?>.broadcast();
+
     // Check saved session immediately to prevent splash screen hanging
     final saved = SessionService.getUser();
     if (saved != null) {
@@ -101,23 +103,26 @@ class SupabaseAuthService implements AuthService {
         email: cleanEmail,
         password: password,
       );
+
       final user = res.user;
       if (user == null) {
         throw AuthException('No user account returned from Supabase.');
       }
+
       final appUser = _mapUser(user);
       if (appUser.role != selectedRole) {
         throw AuthException(
           'Role mismatch. This account is registered as a ${appUser.role.label}, but you selected ${selectedRole.label}.',
         );
       }
+
       _currentUser = appUser;
       await SessionService.saveUser(appUser);
       return appUser;
     } on AuthApiException catch (e) {
       if (e.message.toLowerCase().contains('email not confirmed')) {
         throw AuthException(
-          'Email not confirmed. In Supabase Dashboard -> Authentication -> Providers -> Email, turn OFF "Confirm email" to allow instant login.',
+          'Email not confirmed. In Supabase Dashboard → Authentication → Providers → Email, turn OFF "Confirm email" to allow instant login.',
         );
       }
       throw AuthException(e.message);
@@ -147,6 +152,7 @@ class SupabaseAuthService implements AuthService {
           'phone': phone,
         },
       );
+
       if (res.user != null) {
         try {
           await _supabase.from('profiles').upsert({

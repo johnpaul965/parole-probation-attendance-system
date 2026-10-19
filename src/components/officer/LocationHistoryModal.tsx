@@ -33,6 +33,7 @@ export const LocationHistoryModal: React.FC<Props> = ({
   const parolee = users.find((u) => u.id === paroleeId);
   const summary = getParoleeSummary(paroleeId);
   const history = locationHistories[paroleeId] || [];
+
   const activePoint = history[selectedPointIndex] || history[0];
 
   return (
@@ -53,9 +54,10 @@ export const LocationHistoryModal: React.FC<Props> = ({
               </p>
             </div>
           </div>
+
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -83,6 +85,7 @@ export const LocationHistoryModal: React.FC<Props> = ({
               <p className="text-slate-500 text-[11px]">
                 {history.length} breadcrumb waypoints recorded during current supervision period.
               </p>
+
               <div className="flex items-center gap-2 pt-2">
                 <button
                   onClick={() => {
@@ -90,7 +93,7 @@ export const LocationHistoryModal: React.FC<Props> = ({
                       setSelectedPointIndex(selectedPointIndex - 1);
                     }
                   }}
-                  className="px-3 py-1.5 bg-white border border-slate-200 hover:bg-slate-100 rounded-lg font-semibold cursor-pointer"
+                  className="px-3 py-1.5 bg-white border border-slate-200 hover:bg-slate-100 rounded-lg font-semibold"
                 >
                   Step Prev
                 </button>
@@ -100,13 +103,13 @@ export const LocationHistoryModal: React.FC<Props> = ({
                       setSelectedPointIndex(selectedPointIndex + 1);
                     }
                   }}
-                  className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold cursor-pointer"
+                  className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold"
                 >
                   Step Next
                 </button>
                 <button
                   onClick={() => setSelectedPointIndex(0)}
-                  className="p-1.5 bg-white border border-slate-200 hover:bg-slate-100 rounded-lg text-slate-600 cursor-pointer"
+                  className="p-1.5 bg-white border border-slate-200 hover:bg-slate-100 rounded-lg text-slate-600"
                   title="Reset to latest"
                 >
                   <RotateCcw className="w-4 h-4" />
@@ -127,6 +130,7 @@ export const LocationHistoryModal: React.FC<Props> = ({
               <h4 className="font-bold text-slate-800 uppercase tracking-wider text-[11px] mb-2">
                 Recorded Location Breadcrumbs
               </h4>
+
               <div className="max-h-56 overflow-y-auto divide-y divide-slate-100">
                 {history.length === 0 ? (
                   <p className="text-slate-400 py-6 text-center">No location history recorded</p>
@@ -165,7 +169,7 @@ export const LocationHistoryModal: React.FC<Props> = ({
         <div className="bg-slate-50 px-6 py-3 border-t border-slate-200 flex items-center justify-end">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-semibold cursor-pointer"
+            className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-semibold"
           >
             Close History
           </button>

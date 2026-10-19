@@ -192,7 +192,7 @@ export const LeafletMap: React.FC<LeafletMapProps> = ({
   return (
     <div className="relative rounded-xl overflow-hidden border border-slate-200 shadow-xs" style={{ height }}>
       <div ref={mapContainerRef} className="w-full h-full" />
-      
+
       {/* Floating map controls */}
       <div className="absolute top-3 right-3 z-[1000] flex flex-col gap-1.5 bg-white/90 backdrop-blur-xs p-1.5 rounded-lg shadow-md border border-slate-200">
         <button

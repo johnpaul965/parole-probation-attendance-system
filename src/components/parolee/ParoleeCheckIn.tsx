@@ -23,6 +23,7 @@ export const ParoleeCheckIn: React.FC = () => {
 
   const myActivities = activities.filter((a) => a.assignedParoleeIds.includes(currentUser.id));
   const currentActivity = myActivities.find((a) => a.id === selectedActivityId) || myActivities[0] || activities[0];
+
   const summary = getParoleeSummary(currentUser.id);
   const isWithinProximity = summary?.checkInProximity.isWithinProximity ?? false;
   const distance = summary?.checkInProximity.distanceMeters ?? 45;
@@ -30,7 +31,7 @@ export const ParoleeCheckIn: React.FC = () => {
   // Check if already checked in for this activity
   const isCheckedIn = currentActivity?.completedParoleeIds.includes(currentUser.id);
 
-  // QR Payload format matching system
+  // QR Payload format matching Flutter app
   const ticketId = `AT-2026-${tokenNonce}`;
   const qrPayload = JSON.stringify({
     ticketId,
@@ -57,6 +58,7 @@ export const ParoleeCheckIn: React.FC = () => {
             Present this biometric QR code to your supervising officer during check-in or community activities.
           </p>
         </div>
+
         {/* Proximity Pill */}
         <div
           className={`px-3 py-1.5 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 shrink-0 self-center sm:self-auto ${
@@ -107,6 +109,7 @@ export const ParoleeCheckIn: React.FC = () => {
             includeMargin={true}
             className="rounded-lg"
           />
+
           {isCheckedIn && (
             <div className="absolute inset-0 bg-emerald-950/80 backdrop-blur-xs rounded-xl flex flex-col items-center justify-center text-white p-4 animate-in fade-in">
               <CheckCircle2 className="w-12 h-12 text-emerald-400 mb-2" />
@@ -130,7 +133,7 @@ export const ParoleeCheckIn: React.FC = () => {
         <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-center gap-3 w-full">
           <button
             onClick={handleRotate}
-            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer"
+            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition-colors flex items-center gap-1.5"
           >
             <RotateCw className="w-3.5 h-3.5" />
             <span>Regenerate Token</span>

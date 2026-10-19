@@ -13,7 +13,6 @@ class AppTheme {
       ),
       scaffoldBackgroundColor: AppColors.background,
     );
-
     return base.copyWith(
       textTheme: GoogleFonts.dmSansTextTheme(base.textTheme),
       appBarTheme: const AppBarTheme(

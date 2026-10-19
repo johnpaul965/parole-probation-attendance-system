@@ -61,7 +61,6 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
               <Database className={`w-3.5 h-3.5 ${isSupabaseLive ? 'text-emerald-600 animate-pulse' : 'text-slate-400'}`} />
               <span className="hidden sm:inline">Supabase Live</span>
             </div>
-
             {/* Live GPS Simulator Toggle */}
             <button
               onClick={() => setIsSimulating(!isSimulating)}
@@ -127,6 +126,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
                       </button>
                     </div>
                   </div>
+
                   <div className="max-h-80 overflow-y-auto divide-y divide-slate-100">
                     {notifications.length === 0 ? (
                       <div className="py-8 text-center text-slate-400 text-xs">No notifications</div>
@@ -177,7 +177,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
                 <div className="hidden lg:block text-left">
                   <p className="text-xs font-semibold text-slate-900 leading-tight">{currentUser.fullName}</p>
                   <p className="text-[10px] font-medium text-slate-500 uppercase tracking-wider">
-                    {currentUser.role === 'officer' ? 'Probation Officer' : `Parolee • ${currentUser.caseNumber || 'Active'}`}
+                    {currentUser.role === 'officer' ? 'Probation Officer' : `Parolee · ${currentUser.caseNumber || 'Active'}`}
                   </p>
                 </div>
                 <button

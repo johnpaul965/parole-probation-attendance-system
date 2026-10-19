@@ -10,7 +10,6 @@ import 'package:uuid/uuid.dart';
 class ActivityQrException implements Exception {
   ActivityQrException(this.message);
   final String message;
-
   @override
   String toString() => message;
 }
@@ -46,6 +45,7 @@ class ActivityQrService {
     if (paroleeId != uid) {
       throw ActivityQrException('This QR can only be generated for the signed-in parolee account.');
     }
+
     if (!activity.isAssignedTo(uid)) {
       throw ActivityQrException('You are not assigned to this activity.');
     }
@@ -132,7 +132,6 @@ class ActivityQrService {
       }
 
       AppLogger.d('ActivityQrService', 'Token saved', docId);
-
       final payload = ActivityQrPayload(
         paroleeId: uid,
         paroleeName: paroleeName,
@@ -308,7 +307,6 @@ class ActivityQrService {
           .get();
     }
     if (snap.docs.isEmpty) return null;
-
     final data = snap.docs.first.data();
     return ActivityQrPayload(
       paroleeId: data['paroleeId'] as String? ?? '',

@@ -12,7 +12,6 @@ import 'package:last/features/auth/services/supabase_auth_service.dart';
 class AuthException implements Exception {
   AuthException(this.message);
   final String message;
-
   @override
   String toString() => message;
 }
@@ -38,7 +37,6 @@ abstract class AuthService {
   });
 
   Future<void> signOut();
-
   AppUser? get currentUser;
   Stream<AppUser?> get authStateChanges;
 }
@@ -120,7 +118,6 @@ class FirebaseAuthService implements AuthService {
 
     await cred.user!.reload();
     final fbUser = _auth.currentUser;
-
     if (fbUser == null || !fbUser.emailVerified) {
       try {
         await fbUser?.sendEmailVerification();
@@ -133,6 +130,7 @@ class FirebaseAuthService implements AuthService {
 
     try {
       final user = await _requireActiveProfile(fbUser.uid, signOutOnFailure: true);
+
       if (user.role != selectedRole) {
         await _auth.signOut();
         throw AuthException(
@@ -172,7 +170,6 @@ class FirebaseAuthService implements AuthService {
   }) async {
     final trimmedEmail = email.trim();
     final name = fullName.trim();
-
     fb.UserCredential cred;
     try {
       cred = await _auth.createUserWithEmailAndPassword(
@@ -184,7 +181,6 @@ class FirebaseAuthService implements AuthService {
     }
 
     final uid = cred.user!.uid;
-
     try {
       await cred.user!.updateDisplayName(name);
       await _firestore.collection(FirestoreCollections.users).doc(uid).set({
@@ -204,7 +200,6 @@ class FirebaseAuthService implements AuthService {
       await _auth.signOut();
       throw AuthException(_mapFirestoreError(e));
     }
-
     await _auth.signOut();
     _cached = null;
     await SessionService.clear();
@@ -256,7 +251,7 @@ class FirebaseAuthService implements AuthService {
       case 'unavailable':
         return 'Firebase Auth cannot be reached. Check internet, use a Google Play emulator, and enable Email/Password in Firebase Console.';
       case 'network-request-failed':
-        return 'No internet connection. Turn on Wi Fi or mobile data and try again.';
+        return 'No internet connection. Turn on Wi‑Fi or mobile data and try again.';
       default:
         return e.message ?? 'Authentication failed (${e.code})';
     }
@@ -269,7 +264,7 @@ class FirebaseAuthService implements AuthService {
       case 'unavailable':
         return 'Firestore is unavailable. Check your connection and the pptac-attendance-capstone project.';
       case 'not-found':
-        return 'Firestore database not found. Create it in Firebase Console -> Firestore Database.';
+        return 'Firestore database not found. Create it in Firebase Console → Firestore Database.';
       default:
         return 'Database error: ${e.message ?? e.code}';
     }

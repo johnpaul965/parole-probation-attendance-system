@@ -1,8 +1,10 @@
 /**
- * GPS Tracker – Main firmware
+ * GPS Tracker — Main firmware
+ *
  * Libraries required (Arduino Library Manager):
  *   - TinyGPSPlus by Mikal Hart
  *   - ArduinoJson by Benoit Blanchon
+ *
  * For GSM/GPRS instead of Wi-Fi, replace NetworkService with
  * a SIM800L HTTP client using AT commands.
  */
@@ -32,6 +34,7 @@ int queueTail = 0;
 double lastSentLat = 0;
 double lastSentLng = 0;
 unsigned long lastSentMs = 0;
+
 unsigned long lastTransmitMs = 0;
 
 void enqueue(const LocationPayload& loc) {

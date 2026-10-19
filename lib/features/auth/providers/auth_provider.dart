@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:last/core/services/session_service.dart';
 import 'package:last/features/auth/models/app_user.dart';
@@ -29,6 +30,7 @@ class AuthProvider extends ChangeNotifier {
       await _ready?.future;
       return;
     }
+
     _ready = Completer<void>();
     _authSub = _authService.authStateChanges.listen(
       (user) {
@@ -54,7 +56,6 @@ class AuthProvider extends ChangeNotifier {
         }
       },
     );
-
     try {
       await _ready!.future.timeout(
         const Duration(seconds: 2),

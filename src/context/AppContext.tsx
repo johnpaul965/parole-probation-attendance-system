@@ -218,6 +218,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setIsSupabaseLive(true);
           const latest = data[0];
           const targetParoleeId = (latest as any).parolee_id || 'demo-parolee';
+
           const mappedLatest: LocationRecord = {
             id: `sb-${latest.id || Date.now()}`,
             trackerId: (latest as any).tracker_id || 'TRK-001',
@@ -288,7 +289,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             APP_CONFIG.taclobanLat,
             APP_CONFIG.taclobanLng
           );
-
           if (dist <= APP_CONFIG.proximityRadiusMeters) {
             setNotifications((prev) => [
               {
@@ -351,6 +351,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const interval = setInterval(() => {
       setTick((prev) => prev + 1);
+
       setLiveLocations((prev) => {
         const next = { ...prev };
         const now = new Date().toISOString();
@@ -505,6 +506,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return t;
       })
     );
+
     setUsers((prev) => prev.map((u) => (u.id === paroleeId ? { ...u, trackerId } : u)));
   };
 
@@ -515,6 +517,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setTrackers((prev) =>
       prev.map((t) => (t.id === trackerId ? { ...t, paroleeId: undefined, paroleeName: undefined, status: 'unassigned' } : t))
     );
+
     if (tracker.paroleeId) {
       setUsers((prev) => prev.map((u) => (u.id === tracker.paroleeId ? { ...u, trackerId: undefined } : u)));
     }
@@ -565,7 +568,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       createdAt: new Date().toISOString(),
       completedParoleeIds: [],
     };
-
     setActivities((prev) => [newAct, ...prev]);
 
     // Asynchronously replicate to Supabase activities table
@@ -606,6 +608,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const parolee = users.find((u) => u.id === pId);
       const actId = parsed.activityId || activities[0]?.id;
       const activity = activities.find((a) => a.id === actId);
+
       const ticketId = parsed.ticketId || `AT-2026-${Math.floor(1000 + Math.random() * 9000)}`;
 
       const newRecord: AttendanceRecord = {
@@ -789,7 +792,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       recordedAt: new Date().toISOString(),
       source: 'mobile',
     };
-
     setLiveLocations((prev) => ({ ...prev, [paroleeId]: loc }));
     setLocationHistories((prev) => ({
       ...prev,

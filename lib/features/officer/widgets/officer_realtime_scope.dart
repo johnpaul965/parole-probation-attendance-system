@@ -36,6 +36,7 @@ class _OfficerRealtimeScopeState extends State<OfficerRealtimeScope> {
     _lastOfficerId = user.id;
 
     AppLogger.d('OfficerRealtimeScope', 'Starting realtime', user.id);
+
     if (FirebaseConfig.canUseFirestore) {
       context.read<DashboardProvider>().startListening(user.id);
       context.read<NotificationProvider>().watch(user.id);
@@ -44,7 +45,7 @@ class _OfficerRealtimeScopeState extends State<OfficerRealtimeScope> {
             officerId: user.id,
           );
     } else {
-      AppLogger.d('OfficerRealtimeScope', 'Firebase not ready – dashboard in offline mode');
+      AppLogger.d('OfficerRealtimeScope', 'Firebase not ready — dashboard in offline mode');
     }
   }
 

@@ -1,6 +1,8 @@
 {
-  "name": "",
-  "description": "",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "name": "PPA-TAC: Parole & Probation Attendance & Tracking System",
+  "description": "Comprehensive parolee attendance verification, GPS tracking, geofence monitoring, and activity management system for officers and parolees.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

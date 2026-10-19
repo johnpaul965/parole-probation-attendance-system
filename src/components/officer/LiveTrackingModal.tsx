@@ -34,6 +34,7 @@ export const LiveTrackingModal: React.FC<Props> = ({
   const parolee = users.find((u) => u.id === paroleeId);
   const summary = getParoleeSummary(paroleeId);
   const loc = summary?.latestLocation || liveLocations[paroleeId];
+
   const isWithinProx = summary?.checkInProximity.isWithinProximity;
   const isInsideGeofence = summary?.geofenceStatus === 'inside';
 
@@ -58,6 +59,7 @@ export const LiveTrackingModal: React.FC<Props> = ({
               </p>
             </div>
           </div>
+
           <div className="flex items-center gap-2">
             {onOpenHistory && (
               <button
@@ -65,7 +67,7 @@ export const LiveTrackingModal: React.FC<Props> = ({
                   onClose();
                   onOpenHistory(paroleeId);
                 }}
-                className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors"
               >
                 <History className="w-4 h-4" />
                 <span>History</span>
@@ -73,7 +75,7 @@ export const LiveTrackingModal: React.FC<Props> = ({
             )}
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -159,6 +161,7 @@ export const LiveTrackingModal: React.FC<Props> = ({
                 Pinging every 4 seconds • Tacloban City Grid
               </span>
             </div>
+
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div>
                 <span className="text-slate-400 block text-[10px] uppercase font-semibold">Latitude</span>
@@ -187,7 +190,7 @@ export const LiveTrackingModal: React.FC<Props> = ({
           <span>Proximity verification radius: 50m</span>
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl font-semibold transition-colors cursor-pointer"
+            className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl font-semibold transition-colors"
           >
             Close Live Map
           </button>

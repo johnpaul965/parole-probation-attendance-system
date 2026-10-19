@@ -39,6 +39,7 @@ class OfficerTrackingController extends Controller
         }
 
         $device = $assignment->device;
+
         return response()->json([
             'data' => [
                 'device_id' => $device->device_id,
@@ -99,12 +100,12 @@ class OfficerTrackingController extends Controller
         if ($request->filled('start')) {
             $query->where('recorded_at', '>=', $request->input('start'));
         }
-
         if ($request->filled('end')) {
             $query->where('recorded_at', '<=', $request->input('end'));
         }
 
         $perPage = min((int) $request->input('per_page', 50), 200);
+
         return response()->json($query->paginate($perPage));
     }
 

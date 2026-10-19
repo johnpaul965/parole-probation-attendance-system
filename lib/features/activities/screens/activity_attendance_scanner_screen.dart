@@ -115,7 +115,7 @@ class _ActivityAttendanceScannerScreenState extends State<ActivityAttendanceScan
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${result.record!.paroleeName} – ${result.record!.status.label}'),
+            content: Text('${result.record!.paroleeName} — ${result.record!.status.label}'),
             backgroundColor: AppColors.success,
           ),
         );
@@ -175,6 +175,7 @@ class _ActivityAttendanceScannerScreenState extends State<ActivityAttendanceScan
   @override
   Widget build(BuildContext context) {
     final attendance = context.watch<ActivityAttendanceProvider>();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.officer,
@@ -225,7 +226,7 @@ class _ActivityAttendanceScannerScreenState extends State<ActivityAttendanceScan
                     child: Text(
                       _processing
                           ? 'Validating QR...'
-                          : 'Scan parolee activity QR – only officers can mark attendance',
+                          : 'Scan parolee activity QR — only officers can mark attendance',
                       textAlign: TextAlign.center,
                       style: const TextStyle(color: Colors.white, fontSize: 13),
                     ),

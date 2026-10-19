@@ -87,7 +87,6 @@ class ActivityService {
       completedParoleeIds: const [],
       officerName: officerName,
     );
-
     await _db.collection(FirestoreCollections.activities).doc(id).set(activity.toMap());
 
     for (final pid in paroleeIds) {
@@ -118,6 +117,7 @@ class ActivityService {
   ) async {
     final now = DateTime.now();
     final list = <ActivityModel>[];
+
     for (final doc in docs) {
       var activity = ActivityModel.fromMap({...doc.data(), 'id': doc.id});
       activity = _autoStatus(activity, now);

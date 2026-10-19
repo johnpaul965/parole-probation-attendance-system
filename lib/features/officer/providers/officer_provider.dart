@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:last/features/activities/models/activity_model.dart';
 import 'package:last/features/activities/services/activity_service.dart';

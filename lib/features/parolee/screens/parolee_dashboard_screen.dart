@@ -144,7 +144,7 @@ class _ParoleeDashboardScreenState extends State<ParoleeDashboardScreen> {
                         title: Text(lastRecord.ticketId, style: const TextStyle(fontWeight: FontWeight.w600)),
                         subtitle: Text(
                           lastRecord.checkInTime != null
-                              ? DateFormat('MMM d, y • h:mm a').format(lastRecord.checkInTime!)
+                              ? DateFormat('MMM d, y · h:mm a').format(lastRecord.checkInTime!)
                               : 'Pending',
                         ),
                         trailing: Text(

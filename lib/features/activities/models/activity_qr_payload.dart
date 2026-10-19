@@ -3,7 +3,7 @@ import 'dart:convert';
 class ActivityQrPayload {
   const ActivityQrPayload({
     required this.paroleeId,
-    this.paroleeName = 'Parolee',
+    required this.paroleeName,
     required this.activityId,
     required this.assignedOfficerId,
     required this.activityTitle,
@@ -46,6 +46,7 @@ class ActivityQrPayload {
     try {
       final trimmed = raw.trim();
       if (trimmed.isEmpty) return null;
+
       Map<String, dynamic> map;
       if (trimmed.startsWith('{')) {
         map = jsonDecode(trimmed) as Map<String, dynamic>;
@@ -73,8 +74,10 @@ class ActivityQrPayload {
       } else {
         return null;
       }
+
       final officerId =
           map['assignedOfficerId'] as String? ?? map['officerId'] as String? ?? '';
+
       return ActivityQrPayload(
         paroleeId: map['paroleeId'] as String? ?? '',
         paroleeName: map['paroleeName'] as String? ?? '',

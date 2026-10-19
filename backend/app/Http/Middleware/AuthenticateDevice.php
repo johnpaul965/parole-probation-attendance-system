@@ -28,6 +28,7 @@ class AuthenticateDevice
         }
 
         $request->attributes->set('authenticated_device', $device);
+
         return $next($request);
     }
 }

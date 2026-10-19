@@ -18,6 +18,7 @@ class DeviceService
     public function registerDevice(array $data): array
     {
         $plainToken = Str::random(64);
+
         $device = Device::create([
             'device_id' => $data['device_id'],
             'device_name' => $data['device_name'] ?? $data['device_id'],
@@ -34,6 +35,7 @@ class DeviceService
     {
         $plainToken = Str::random(64);
         $device->update(['api_token_hash' => Hash::make($plainToken)]);
+
         return $plainToken;
     }
 
@@ -45,6 +47,7 @@ class DeviceService
         }
 
         $device->update(['status' => $status]);
+
         return $device->fresh();
     }
 
@@ -85,6 +88,7 @@ class DeviceAssignmentService
             ]);
 
             $device->update(['status' => 'active']);
+
             return $assignment;
         });
     }
@@ -223,27 +227,28 @@ class TrackingAuditService
 
 class GeofenceService
 {
-    public function evaluate(float $lat, float $lng, string $paroleeId): array
-    {
-        $violations = [];
-        $geofences = Geofence::where('parolee_id', $paroleeId)->where('status', 'active')->get();
+  public function evaluate(float $lat, float $lng, string $paroleeId): array
+  {
+      $violations = [];
+      $geofences = Geofence::where('parolee_id', $paroleeId)->where('status', 'active')->get();
 
-        foreach ($geofences as $geofence) {
-            $distance = $this->haversineMeters($lat, $lng, (float) $geofence->latitude, (float) $geofence->longitude);
-            if ($distance > $geofence->radius_meters) {
-                $violations[] = $geofence;
-            }
-        }
+      foreach ($geofences as $geofence) {
+          $distance = $this->haversineMeters($lat, $lng, (float) $geofence->latitude, (float) $geofence->longitude);
+          if ($distance > $geofence->radius_meters) {
+              $violations[] = $geofence;
+          }
+      }
 
-        return $violations;
-    }
+      return $violations;
+  }
 
-    private function haversineMeters(float $lat1, float $lng1, float $lat2, float $lng2): float
-    {
-        $earthRadius = 6371000;
-        $dLat = deg2rad($lat2 - $lat1);
-        $dLng = deg2rad($lng2 - $lng1);
-        $a = sin($dLat / 2) ** 2 + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * sin($dLng / 2) ** 2;
-        return 2 * $earthRadius * asin(min(1, sqrt($a)));
-    }
+  private function haversineMeters(float $lat1, float $lng1, float $lat2, float $lng2): float
+  {
+      $earthRadius = 6371000;
+      $dLat = deg2rad($lat2 - $lat1);
+      $dLng = deg2rad($lng2 - $lng1);
+      $a = sin($dLat / 2) ** 2 + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * sin($dLng / 2) ** 2;
+
+      return 2 * $earthRadius * asin(min(1, sqrt($a)));
+  }
 }

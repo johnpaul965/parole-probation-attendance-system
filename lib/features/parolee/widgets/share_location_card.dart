@@ -15,6 +15,7 @@ class ShareLocationCard extends StatelessWidget {
     if (user == null) return const SizedBox.shrink();
 
     final last = gps.lastSentAt;
+
     return Card(
       margin: EdgeInsets.zero,
       child: Padding(
@@ -42,7 +43,7 @@ class ShareLocationCard extends StatelessWidget {
               subtitle: Text(
                 gps.isSharing
                     ? (last == null
-                        ? 'Sharing — waiting for GPS'
+                        ? 'Sharing… waiting for GPS'
                         : 'Last sent ${DateFormat('h:mm a').format(last)}')
                     : 'Off — your officer cannot see phone GPS',
                 style: const TextStyle(fontSize: 12),

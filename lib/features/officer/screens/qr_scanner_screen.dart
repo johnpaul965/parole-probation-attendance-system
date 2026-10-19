@@ -32,14 +32,11 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
     final barcode = capture.barcodes.firstOrNull;
     final raw = barcode?.rawValue;
     if (raw == null) return;
-
     setState(() => _processing = true);
     final officer = context.read<AuthProvider>().user!;
     final result = await context.read<AttendanceProvider>().verifyQr(raw, officer);
     if (!mounted) return;
-
     setState(() => _processing = false);
-
     if (result != null) {
       context.read<TrackingProvider>().beginCheckInSession(
             paroleeId: result.paroleeId,

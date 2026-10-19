@@ -9,16 +9,13 @@ public:
   bool begin(const char* ssid, const char* password) {
     WiFi.mode(WIFI_STA);
     WiFi.begin(ssid, password);
-
     unsigned long start = millis();
     while (WiFi.status() != WL_CONNECTED && millis() - start < 30000) {
       delay(500);
     }
-
     if (WiFi.status() == WL_CONNECTED) {
       configTime(8 * 3600, 0, "pool.ntp.org", "time.nist.gov");
     }
-
     return WiFi.status() == WL_CONNECTED;
   }
 

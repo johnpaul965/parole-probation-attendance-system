@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\OfficerTrackingController;
 use App\Http\Middleware\AuthenticateDevice;
 use Illuminate\Support\Facades\Route;
 
-// IoT device endpoint – Bearer token or X-Device-Token header
+// IoT device endpoint — Bearer token or X-Device-Token header
 Route::middleware(['throttle:device', AuthenticateDevice::class])
     ->post('/device/location', [DeviceLocationController::class, 'store']);
 

@@ -84,17 +84,18 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({
               {currentUser?.department || 'District 4 - Tacloban Field Office'} • Active Monitoring Active
             </p>
           </div>
+
           <div className="flex items-center gap-2">
             <button
               onClick={() => setIsScannerOpen(true)}
-              className="px-4 py-2.5 bg-white text-blue-700 hover:bg-blue-50 font-semibold rounded-xl text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 shrink-0 cursor-pointer"
+              className="px-4 py-2.5 bg-white text-blue-700 hover:bg-blue-50 font-semibold rounded-xl text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 shrink-0"
             >
               <CheckCircle2 className="w-4 h-4 text-blue-600" />
               <span>Scan Attendance QR</span>
             </button>
             <button
               onClick={() => onNavigate('reports')}
-              className="px-4 py-2.5 bg-blue-700/80 hover:bg-blue-600 text-white font-medium rounded-xl text-xs sm:text-sm border border-blue-400/30 transition-all flex items-center gap-2 shrink-0 cursor-pointer"
+              className="px-4 py-2.5 bg-blue-700/80 hover:bg-blue-600 text-white font-medium rounded-xl text-xs sm:text-sm border border-blue-400/30 transition-all flex items-center gap-2 shrink-0"
             >
               <FileSpreadsheet className="w-4 h-4" />
               <span>Reports</span>
@@ -152,7 +153,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({
         <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto no-scrollbar">
           <button
             onClick={() => setFilter(null)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors shrink-0 cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors shrink-0 ${
               filter === null ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
             }`}
           >
@@ -160,7 +161,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({
           </button>
           <button
             onClick={() => setFilter('checkedIn')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors shrink-0 cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors shrink-0 ${
               filter === 'checkedIn' ? 'bg-emerald-600 text-white' : 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
             }`}
           >
@@ -168,7 +169,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({
           </button>
           <button
             onClick={() => setFilter('pending')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors shrink-0 cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors shrink-0 ${
               filter === 'pending' ? 'bg-amber-600 text-white' : 'bg-amber-50 text-amber-700 hover:bg-amber-100'
             }`}
           >
@@ -176,7 +177,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({
           </button>
           <button
             onClick={() => setFilter('missed')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors shrink-0 cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors shrink-0 ${
               filter === 'missed' ? 'bg-rose-600 text-white' : 'bg-rose-50 text-rose-700 hover:bg-rose-100'
             }`}
           >
@@ -198,7 +199,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({
             </div>
             <button
               onClick={() => onNavigate('trackers')}
-              className="text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1 cursor-pointer"
+              className="text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1"
             >
               All Trackers <ChevronRight className="w-3.5 h-3.5" />
             </button>
@@ -272,13 +273,13 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({
                   <div className="mt-3 pt-3 border-t border-slate-100 flex items-center gap-2">
                     <button
                       onClick={() => onOpenLiveTracking && onOpenLiveTracking(p.id)}
-                      className="flex-1 py-1.5 px-3 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold text-xs transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                      className="flex-1 py-1.5 px-3 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold text-xs transition-colors flex items-center justify-center gap-1"
                     >
                       <MapPin className="w-3.5 h-3.5" /> Track Live
                     </button>
                     <button
                       onClick={() => onOpenHistory && onOpenHistory(p.id)}
-                      className="py-1.5 px-3 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors cursor-pointer"
+                      className="py-1.5 px-3 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors"
                     >
                       History
                     </button>
@@ -297,7 +298,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({
             </h2>
             <button
               onClick={() => onNavigate('activities')}
-              className="text-xs font-semibold text-blue-600 hover:text-blue-800 cursor-pointer"
+              className="text-xs font-semibold text-blue-600 hover:text-blue-800"
             >
               Manage
             </button>
@@ -310,6 +311,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({
                   ? (act.completedParoleeIds.length / act.assignedParoleeIds.length) * 100
                   : 0
               );
+
               return (
                 <div
                   key={act.id}
@@ -330,7 +332,9 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({
                       {act.status}
                     </span>
                   </div>
+
                   <p className="text-[11px] text-slate-500 mt-1 line-clamp-1">{act.location}</p>
+
                   <div className="mt-3">
                     <div className="flex justify-between text-[10px] text-slate-500 font-medium mb-1">
                       <span>Attendance Compliance</span>
@@ -373,7 +377,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({
           </div>
           <button
             onClick={() => onNavigate('users')}
-            className="text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1 cursor-pointer"
+            className="text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1"
           >
             Manage Users <ArrowRight className="w-3.5 h-3.5" />
           </button>
@@ -450,14 +454,14 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({
                   <div className="flex items-center gap-2 shrink-0">
                     <button
                       onClick={() => onOpenLiveTracking && onOpenLiveTracking(p.id)}
-                      className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-semibold rounded-lg transition-colors flex items-center gap-1 cursor-pointer"
+                      className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-semibold rounded-lg transition-colors flex items-center gap-1"
                     >
                       <MapPin className="w-3.5 h-3.5" />
                       Live Map
                     </button>
                     <button
                       onClick={() => onOpenHistory && onOpenHistory(p.id)}
-                      className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-lg transition-colors cursor-pointer"
+                      className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-lg transition-colors"
                     >
                       History
                     </button>

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:last/features/auth/models/app_user.dart';
 import 'package:last/features/officer/services/officer_service.dart';
@@ -22,7 +23,6 @@ class ParoleeProvider extends ChangeNotifier {
   double _complianceRate = 0;
   bool _loading = false;
   String? _error;
-
   StreamSubscription<List<ScheduleModel>>? _scheduleSub;
 
   List<ScheduleModel> get schedules => _schedules;
@@ -49,11 +49,9 @@ class ParoleeProvider extends ChangeNotifier {
           ..sort((a, b) => a.scheduledAt.compareTo(b.scheduledAt));
         _nextSchedule = upcoming.isEmpty ? null : upcoming.first;
         _complianceRate = _computeCompliance(attendanceRecords);
-
         if (officerId != null && officerId.isNotEmpty) {
           _assignedOfficer = await _officerService.getUserById(officerId);
         }
-
         _loading = false;
         _error = null;
         notifyListeners();

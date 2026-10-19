@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:last/core/services/live_stats_service.dart';
 import 'package:last/core/utils/app_logger.dart';
@@ -19,7 +20,6 @@ class DashboardProvider extends ChangeNotifier {
 
   final OfficerService _service;
   final LiveStatsService _liveStatsService;
-
   DashboardStats? _stats;
   LiveStats? _liveStats;
   List<ParoleeSummary> _parolees = [];
@@ -29,14 +29,12 @@ class DashboardProvider extends ChangeNotifier {
   String _search = '';
   AttendanceStatus? _filter;
   String? _officerId;
-
   StreamSubscription<DashboardSnapshot>? _sub;
   StreamSubscription<LiveStats?>? _liveSub;
 
   DashboardStats? get stats => _liveStats?.stats ?? _stats;
   LiveStats? get liveStats => _liveStats;
   List<ParoleeSummary> get parolees => _parolees;
-
   List<ParoleeSummary> get checkedInList =>
       _liveStats?.checkedIn ??
       _parolees
@@ -48,7 +46,6 @@ class DashboardProvider extends ChangeNotifier {
       _liveStats?.pending ?? _parolees.where((p) => p.status == AttendanceStatus.pending).toList();
   List<ParoleeSummary> get missedList =>
       _liveStats?.missed ?? _parolees.where((p) => p.status == AttendanceStatus.missed).toList();
-
   List<ScheduleModel> get schedules => _schedules;
   bool get isLoading => _loading;
   String? get error => _error;
@@ -61,6 +58,17 @@ class DashboardProvider extends ChangeNotifier {
       notifyListeners();
       return;
     }
+
+    if (!FirebaseConfig.canUseFirestore) {
+      _error =
+          'Firebase is not configured. Run flutterfire configure or use demo credentials offline.';
+      _loading = false;
+      _stats = const DashboardStats(totalCases: 0, checkedIn: 0, pending: 0, missed: 0);
+      _parolees = [];
+      notifyListeners();
+      return;
+    }
+
     _officerId = officerId;
     _sub?.cancel();
     _liveSub?.cancel();

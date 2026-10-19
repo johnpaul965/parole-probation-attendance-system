@@ -45,9 +45,11 @@ class DemoAuthService implements AuthService {
   }) async {
     await Future<void>.delayed(const Duration(milliseconds: 400));
     final normalized = email.trim().toLowerCase();
+
     if (password != LoginCredentials.password) {
       throw AuthException('Invalid email or password');
     }
+
     final account = _accounts[normalized];
     if (account == null) {
       throw AuthException('No demo account for this email. Use officer or parolee test emails.');
@@ -55,6 +57,7 @@ class DemoAuthService implements AuthService {
     if (account.role != selectedRole) {
       throw AuthException('Wrong role selected. Switch the role tab to ${account.role.label}.');
     }
+
     _user = account;
     await SessionService.saveUser(account);
     return account;

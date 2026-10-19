@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:last/core/utils/app_logger.dart';
 import 'package:last/features/activities/models/activity_attendance_record.dart';
@@ -32,7 +33,6 @@ class ActivityAttendanceProvider extends ChangeNotifier {
   bool _qrLoading = false;
   String? _error;
   String? _qrError;
-
   StreamSubscription<List<ActivityAttendanceRecord>>? _activitySub;
   StreamSubscription<List<ActivityAttendanceRecord>>? _paroleeSub;
   StreamSubscription<List<ActivityAttendanceRecord>>? _allSub;
@@ -133,11 +133,13 @@ class ActivityAttendanceProvider extends ChangeNotifier {
     notifyListeners();
 
     AppLogger.d('ActivityAttendanceProvider', 'loadParoleeQr', activity.id);
+
     try {
       final officerId = officerIdOverride ??
           (activity.assignedOfficerId.isNotEmpty
               ? activity.assignedOfficerId
               : parolee.officerId);
+
       final payload = await _qrService.generateForActivity(
         activity: activity,
         paroleeId: parolee.id,
@@ -145,6 +147,7 @@ class ActivityAttendanceProvider extends ChangeNotifier {
         officerIdOverride: officerId,
         rotate: rotate,
       );
+
       _qrByActivity[activity.id] = payload;
       _qrError = null;
       AppLogger.d('ActivityAttendanceProvider', 'QR ready', payload.encode().length);

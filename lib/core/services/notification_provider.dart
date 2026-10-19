@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:last/core/services/notification_service.dart';
 import 'package:last/features/shared/models/notification_model.dart';

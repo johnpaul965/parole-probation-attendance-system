@@ -1,29 +1,27 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 enum AttendanceStatus {
-  checkedIn('Checked In'),
-  confirmed('Confirmed'),
-  pending('Pending'),
-  missed('Missed');
+  checkedIn,
+  pending,
+  missed,
+  confirmed;
 
-  const AttendanceStatus(this.label);
-  final String label;
-
-  static AttendanceStatus fromString(String val) {
-    switch (val.toLowerCase()) {
-      case 'checkedin':
-      case 'checked_in':
-      case 'present':
-        return AttendanceStatus.checkedIn;
-      case 'confirmed':
-        return AttendanceStatus.confirmed;
-      case 'missed':
-      case 'absent':
-        return AttendanceStatus.missed;
-      case 'pending':
-      default:
-        return AttendanceStatus.pending;
+  String get label {
+    switch (this) {
+      case AttendanceStatus.checkedIn:
+        return 'Checked In';
+      case AttendanceStatus.pending:
+        return 'Pending';
+      case AttendanceStatus.missed:
+        return 'Missed';
+      case AttendanceStatus.confirmed:
+        return 'Confirmed';
     }
+  }
+
+  static AttendanceStatus fromString(String value) {
+    return AttendanceStatus.values.firstWhere(
+      (s) => s.name == value,
+      orElse: () => AttendanceStatus.pending,
+    );
   }
 }
 
@@ -32,110 +30,80 @@ class AttendanceRecord {
     required this.id,
     required this.ticketId,
     required this.paroleeId,
-    this.paroleeName = 'Parolee',
-    this.officerId,
+    required this.paroleeName,
+    required this.officerId,
+    required this.status,
     this.checkInTime,
     this.scheduledTime,
     this.location,
-    this.qrPayload,
     this.verified = false,
-    this.verifiedAt,
-    this.verifiedBy,
-    this.status = AttendanceStatus.pending,
-    this.notes,
+    this.qrPayload,
   });
 
   final String id;
   final String ticketId;
   final String paroleeId;
   final String paroleeName;
-  final String? officerId;
+  final String officerId;
+  final AttendanceStatus status;
   final DateTime? checkInTime;
   final DateTime? scheduledTime;
   final String? location;
-  final String? qrPayload;
   final bool verified;
-  final DateTime? verifiedAt;
-  final String? verifiedBy;
-  final AttendanceStatus status;
-  final String? notes;
+  final String? qrPayload;
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'ticketId': ticketId,
-      'paroleeId': paroleeId,
-      'paroleeName': paroleeName,
-      'officerId': officerId,
-      'checkInTime': checkInTime != null ? Timestamp.fromDate(checkInTime!) : null,
-      'scheduledTime': scheduledTime != null ? Timestamp.fromDate(scheduledTime!) : null,
-      'location': location,
-      'qrPayload': qrPayload,
-      'verified': verified,
-      'verifiedAt': verifiedAt != null ? Timestamp.fromDate(verifiedAt!) : null,
-      'verifiedBy': verifiedBy,
-      'status': status.name,
-      'notes': notes,
-    };
-  }
+  Map<String, dynamic> toMap() => {
+        'id': id,
+        'ticketId': ticketId,
+        'paroleeId': paroleeId,
+        'paroleeName': paroleeName,
+        'officerId': officerId,
+        'status': status.name,
+        'checkInTime': checkInTime?.toIso8601String(),
+        'scheduledTime': scheduledTime?.toIso8601String(),
+        'location': location,
+        'verified': verified,
+        'qrPayload': qrPayload,
+      };
 
   factory AttendanceRecord.fromMap(Map<String, dynamic> map) {
-    DateTime? parseDate(dynamic val) {
-      if (val == null) return null;
-      if (val is Timestamp) return val.toDate();
-      if (val is String) return DateTime.tryParse(val);
-      return null;
-    }
-
     return AttendanceRecord(
       id: map['id'] as String? ?? '',
       ticketId: map['ticketId'] as String? ?? '',
       paroleeId: map['paroleeId'] as String? ?? '',
-      paroleeName: map['paroleeName'] as String? ?? 'Parolee',
-      officerId: map['officerId'] as String?,
-      checkInTime: parseDate(map['checkInTime']),
-      scheduledTime: parseDate(map['scheduledTime']),
-      location: map['location'] as String?,
-      qrPayload: map['qrPayload'] as String?,
-      verified: map['verified'] as bool? ?? false,
-      verifiedAt: parseDate(map['verifiedAt']),
-      verifiedBy: map['verifiedBy'] as String?,
+      paroleeName: map['paroleeName'] as String? ?? '',
+      officerId: map['officerId'] as String? ?? '',
       status: AttendanceStatus.fromString(map['status'] as String? ?? 'pending'),
-      notes: map['notes'] as String?,
+      checkInTime: map['checkInTime'] != null
+          ? DateTime.tryParse(map['checkInTime'] as String)
+          : null,
+      scheduledTime: map['scheduledTime'] != null
+          ? DateTime.tryParse(map['scheduledTime'] as String)
+          : null,
+      location: map['location'] as String?,
+      verified: map['verified'] as bool? ?? false,
+      qrPayload: map['qrPayload'] as String?,
     );
   }
 
   AttendanceRecord copyWith({
-    String? id,
-    String? ticketId,
-    String? paroleeId,
-    String? paroleeName,
-    String? officerId,
-    DateTime? checkInTime,
-    DateTime? scheduledTime,
-    String? location,
-    String? qrPayload,
-    bool? verified,
-    DateTime? verifiedAt,
-    String? verifiedBy,
     AttendanceStatus? status,
-    String? notes,
+    DateTime? checkInTime,
+    bool? verified,
+    String? qrPayload,
   }) {
     return AttendanceRecord(
-      id: id ?? this.id,
-      ticketId: ticketId ?? this.ticketId,
-      paroleeId: paroleeId ?? this.paroleeId,
-      paroleeName: paroleeName ?? this.paroleeName,
-      officerId: officerId ?? this.officerId,
-      checkInTime: checkInTime ?? this.checkInTime,
-      scheduledTime: scheduledTime ?? this.scheduledTime,
-      location: location ?? this.location,
-      qrPayload: qrPayload ?? this.qrPayload,
-      verified: verified ?? this.verified,
-      verifiedAt: verifiedAt ?? this.verifiedAt,
-      verifiedBy: verifiedBy ?? this.verifiedBy,
+      id: id,
+      ticketId: ticketId,
+      paroleeId: paroleeId,
+      paroleeName: paroleeName,
+      officerId: officerId,
       status: status ?? this.status,
-      notes: notes ?? this.notes,
+      checkInTime: checkInTime ?? this.checkInTime,
+      scheduledTime: scheduledTime,
+      location: location,
+      verified: verified ?? this.verified,
+      qrPayload: qrPayload ?? this.qrPayload,
     );
   }
 }

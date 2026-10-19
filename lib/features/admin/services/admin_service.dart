@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:last/core/constants/firestore_collections.dart';
 import 'package:last/core/utils/error_handler.dart';
@@ -112,14 +113,17 @@ class FirebaseAdminService implements AdminService {
   Future<double> computeComplianceRate() async {
     final attSnap = await _db.collection(FirestoreCollections.attendance).get();
     if (attSnap.docs.isEmpty) return 0;
+
     final records = attSnap.docs
         .map((d) => AttendanceRecord.fromMap({...d.data(), 'id': d.id}))
         .toList();
+
     final last30 = records.where((r) {
       final t = r.checkInTime ?? r.scheduledTime;
       if (t == null) return false;
       return t.isAfter(DateTime.now().subtract(const Duration(days: 30)));
     }).toList();
+
     if (last30.isEmpty) return 0;
     final compliant = last30.where((r) => r.status != AttendanceStatus.missed).length;
     return (compliant / last30.length) * 100;

@@ -1,5 +1,5 @@
 /**
- * GPS Tracker Firmware – PPA-TAC (Supabase REST API)
+ * GPS Tracker Firmware — PPA-TAC (Supabase REST API)
  * Configured for direct HTTPS PostgREST calls to Supabase.
  */
 
@@ -20,6 +20,7 @@
 #define INTERVAL_MOVING_MS 30000
 #define INTERVAL_NORMAL_MS 60000
 #define INTERVAL_STATIONARY_MS 120000
+
 #define MOVING_SPEED_KMH 3.0
 
 // Hardware Pin Configuration
@@ -28,6 +29,7 @@
 #define GSM_RX_PIN 18
 #define GSM_TX_PIN 19
 #define BATTERY_ADC_PIN 34
+
 #define MAX_QUEUE_SIZE 20
 
 #endif

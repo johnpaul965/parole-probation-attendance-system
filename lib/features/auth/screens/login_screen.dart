@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:last/core/constants/app_constants.dart';
 import 'package:last/core/theme/app_colors.dart';
+import 'package:last/core/utils/firebase_config.dart';
 import 'package:last/core/utils/validators.dart';
 import 'package:last/features/auth/models/user_role.dart';
 import 'package:last/features/auth/providers/auth_provider.dart';
@@ -102,6 +103,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(color: Colors.white.withValues(alpha: 0.55), fontSize: 13),
               ),
               const SizedBox(height: 22),
+              if (!FirebaseConfig.isConfigured)
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: AppColors.warning.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: AppColors.warning.withValues(alpha: 0.5)),
+                  ),
+                  child: const Text(
+                    'Demo mode: Firebase is not configured. Sign in works offline; dashboards need Firestore setup.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white, fontSize: 11),
+                  ),
+                ),
               AuthTextField(
                 label: 'Email',
                 controller: _emailController,

@@ -63,7 +63,6 @@ function tokenMatches(data, token) {
 async function findTracker(deviceId) {
   const byId = await db.collection("gps_trackers").doc(deviceId).get();
   if (byId.exists) return { id: byId.id, data: byId.data() };
-
   const q = await db
     .collection("gps_trackers")
     .where("deviceIdentifier", "==", deviceId)
@@ -96,7 +95,6 @@ exports.ingestLocation = onRequest({ cors: false, invoker: "public" }, async (re
   const body = req.body && typeof req.body === "object" ? req.body : {};
   const token = bearerToken(req);
   const deviceId = deviceIdFrom(req, body);
-
   if (!token || !deviceId) {
     res.status(401).json({ message: "Device credentials required" });
     return;
@@ -104,7 +102,6 @@ exports.ingestLocation = onRequest({ cors: false, invoker: "public" }, async (re
 
   const lat = Number(body.latitude);
   const lng = Number(body.longitude);
-
   if (!isValidCoordinates(lat, lng)) {
     res.status(422).json({ message: "Invalid coordinates" });
     return;
@@ -140,14 +137,12 @@ exports.ingestLocation = onRequest({ cors: false, invoker: "public" }, async (re
     res.status(422).json({ message: "Invalid timestamp" });
     return;
   }
-
   const recordedIso = recordedAt.toISOString();
-  const previous = await latestLocation(paroleeId);
 
+  const previous = await latestLocation(paroleeId);
   if (previous && previous.recordedAt) {
     const prevAt = new Date(previous.recordedAt);
     const dt = Math.abs(recordedAt.getTime() - prevAt.getTime());
-
     if (
       dt <= DUPLICATE_WINDOW_MS &&
       Math.abs(Number(previous.latitude) - lat) < MIN_COORD_DELTA &&
@@ -156,7 +151,6 @@ exports.ingestLocation = onRequest({ cors: false, invoker: "public" }, async (re
       res.status(200).json({ message: "Duplicate location ignored" });
       return;
     }
-
     const seconds = (recordedAt.getTime() - prevAt.getTime()) / 1000;
     if (seconds > 0) {
       const distanceM = metersBetween(

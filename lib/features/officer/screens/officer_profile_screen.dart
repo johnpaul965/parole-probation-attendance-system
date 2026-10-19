@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -72,6 +73,7 @@ class _OfficerProfileScreenState extends State<OfficerProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<AuthProvider>().user!;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -193,7 +195,7 @@ class _AccountSection extends StatelessWidget {
   }
 }
 
-/// Live tracking list – isolated rebuild via Selector.
+/// Live tracking list — isolated rebuild via Selector.
 class _OfficerLiveTrackingSection extends StatelessWidget {
   const _OfficerLiveTrackingSection();
 
@@ -228,6 +230,7 @@ class _OfficerLiveTrackingSection extends StatelessWidget {
             },
           );
         }
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -248,7 +251,7 @@ class _OfficerLiveTrackingSection extends StatelessWidget {
                       paroleeName: a.paroleeName,
                       detail:
                           'Parolee ${a.paroleeName} is within ${TrackingConfig.checkInProximityRadiusMeters.round()} meters of the assigned check-in location.\n'
-                          '${a.locationName} • ${a.distanceMeters.round()}m',
+                          '${a.locationName} · ${a.distanceMeters.round()}m',
                       lastSeen: a.timestamp,
                     ),
                   ),
@@ -311,7 +314,6 @@ class _TrackingListData {
     if (loading != other.loading || error != other.error) return false;
     if (parolees.length != other.parolees.length) return false;
     if (proximityAlerts.length != other.proximityAlerts.length) return false;
-
     for (var i = 0; i < parolees.length; i++) {
       final a = parolees[i];
       final b = other.parolees[i];
@@ -325,7 +327,6 @@ class _TrackingListData {
         return false;
       }
     }
-
     return stats.totalAssigned == other.stats.totalAssigned &&
         stats.activeTrackers == other.stats.activeTrackers &&
         stats.offlineTrackers == other.stats.offlineTrackers;
@@ -343,6 +344,7 @@ class _TrackingListData {
 
 class _SectionLabel extends StatelessWidget {
   const _SectionLabel(this.text);
+
   final String text;
 
   @override

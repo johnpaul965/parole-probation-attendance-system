@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:last/core/constants/app_constants.dart';
 
 class TicketGenerator {

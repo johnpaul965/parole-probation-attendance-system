@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:last/core/services/live_stats_service.dart';
 import 'package:last/features/admin/services/admin_service.dart';
@@ -15,13 +16,11 @@ class AdminProvider extends ChangeNotifier {
 
   final AdminService _service;
   final LiveStatsService _liveStatsService;
-
   List<AppUser> _users = [];
   bool _loading = false;
   String? _error;
   double _complianceRate = 0;
   List<LiveStats> _allLiveStats = [];
-
   StreamSubscription<List<AppUser>>? _usersSub;
   StreamSubscription<double>? _complianceSub;
   StreamSubscription<List<LiveStats>>? _liveSub;

@@ -4,7 +4,6 @@ import 'package:last/core/constants/app_constants.dart';
 import 'package:last/core/theme/app_colors.dart';
 import 'package:provider/provider.dart';
 import 'package:last/features/auth/providers/auth_provider.dart';
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 

@@ -57,6 +57,7 @@ export const SupervisionPeriodCard: React.FC<Props> = ({
             </span>
           </div>
         </div>
+
         {snapshot.isActive && !snapshot.hasMissingDates && (
           <div className="bg-blue-50/70 border border-blue-100 rounded-lg p-2.5 sm:text-right shrink-0">
             <span className="text-[11px] text-blue-700 font-medium flex items-center gap-1 sm:justify-end">

@@ -91,12 +91,12 @@ class FirebaseAttendanceService implements AttendanceService {
       schedules.sort((a, b) => b.scheduledAt.compareTo(a.scheduledAt));
       officerId = schedules.isEmpty ? '' : schedules.first.officerId;
     }
+
     if (officerId.isEmpty) {
       throw AppException(
         'No assigned officer found for this parolee. Ask an officer to assign you first.',
       );
     }
-
     final record = AttendanceRecord(
       id: id,
       ticketId: ticketId,
@@ -108,9 +108,7 @@ class FirebaseAttendanceService implements AttendanceService {
       location: location ?? 'PPA District Office',
       qrPayload: 'PPA|$ticketId|${parolee.id}|${DateTime.now().millisecondsSinceEpoch}',
     );
-
     await _db.collection(FirestoreCollections.attendance).doc(id).set(record.toMap());
-
     await _liveStats.syncParoleeStatus(
       paroleeId: parolee.id,
       status: AttendanceStatus.checkedIn,
@@ -139,16 +137,13 @@ class FirebaseAttendanceService implements AttendanceService {
         .where('ticketId', isEqualTo: ticketId)
         .limit(1)
         .get();
-
     if (snap.docs.isEmpty) throw AppException('Attendance record not found');
     final doc = snap.docs.first;
     final data = doc.data();
-
     await doc.reference.update({
       'verified': true,
       'status': AttendanceStatus.confirmed.name,
     });
-
     final paroleeId = data['paroleeId'] as String? ?? '';
     if (paroleeId.isNotEmpty) {
       await _liveStats.syncParoleeStatus(
@@ -156,27 +151,24 @@ class FirebaseAttendanceService implements AttendanceService {
         status: AttendanceStatus.confirmed,
       );
     }
-
     final record = AttendanceRecord.fromMap({
       ...data,
       'id': doc.id,
       'verified': true,
       'status': AttendanceStatus.confirmed.name,
     });
-
     await _sendNotification(
       userId: data['paroleeId'] as String? ?? '',
       title: 'Attendance Verified',
       body: 'Your check-in $ticketId was verified by ${officer.fullName}.',
       type: NotificationType.success,
     );
-
     final recordOfficerId = data['officerId'] as String? ?? officer.id;
     if (recordOfficerId.isNotEmpty) {
       await _sendNotification(
         userId: recordOfficerId,
         title: 'Check-in Confirmed',
-        body: '${data['paroleeName'] ?? 'Parolee'} • $ticketId verified.',
+        body: '${data['paroleeName'] ?? 'Parolee'} — $ticketId verified.',
         type: NotificationType.success,
       );
     }
@@ -270,6 +262,7 @@ class SupabaseAttendanceService implements AttendanceService {
       verified: false,
     );
     _local.insert(0, rec);
+
     if (SupabaseConfig.isConfigured) {
       try {
         await _supabase.from('attendance_records').insert({
@@ -302,6 +295,7 @@ class SupabaseAttendanceService implements AttendanceService {
       verified: true,
     );
     _local.insert(0, rec);
+
     if (SupabaseConfig.isConfigured) {
       try {
         await _supabase.from('attendance_records').insert({

@@ -14,7 +14,6 @@ import 'package:last/features/officer/providers/dashboard_provider.dart';
 import 'package:last/features/officer/widgets/live_attendance_panel.dart';
 import 'package:last/features/officer/widgets/parolee_card.dart';
 import 'package:last/features/shared/models/attendance_record.dart';
-
 class OfficerDashboardScreen extends StatefulWidget {
   const OfficerDashboardScreen({super.key});
 
@@ -269,7 +268,7 @@ class _OfficerDashboardScreenState extends State<OfficerDashboardScreen> {
                                       leading: const Icon(Icons.event, color: AppColors.officer, size: 20),
                                       title: Text(s.paroleeName, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
                                       subtitle: Text(
-                                        '${DateFormat('MMM d, y').format(s.scheduledAt)} • ${s.location}',
+                                        '${DateFormat('MMM d, y').format(s.scheduledAt)} · ${s.location}',
                                         style: const TextStyle(fontSize: 11),
                                       ),
                                       trailing: Text(s.type, style: const TextStyle(fontSize: 10, color: AppColors.textMuted)),
@@ -324,7 +323,6 @@ class _OfficerDashboardScreenState extends State<OfficerDashboardScreen> {
 class _SectionLabel extends StatelessWidget {
   const _SectionLabel(this.text);
   final String text;
-
   @override
   Widget build(BuildContext context) {
     return Padding(

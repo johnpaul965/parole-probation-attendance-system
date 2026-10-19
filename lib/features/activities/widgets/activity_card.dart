@@ -18,7 +18,7 @@ class ActivityCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dateFmt = DateFormat('EEE, MMM d • h:mm a');
+    final dateFmt = DateFormat('EEE, MMM d · h:mm a');
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       elevation: 0,

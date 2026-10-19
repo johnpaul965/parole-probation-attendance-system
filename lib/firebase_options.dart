@@ -66,4 +66,5 @@ class DefaultFirebaseOptions {
     authDomain: 'pptac-attendance-capstone.firebaseapp.com',
     storageBucket: 'pptac-attendance-capstone.firebasestorage.app',
   );
+
 }

@@ -26,7 +26,6 @@ class LiveStats {
         .toList();
     final pending = all.where((p) => p.status == AttendanceStatus.pending).toList();
     final missed = all.where((p) => p.status == AttendanceStatus.missed).toList();
-
     return LiveStats(
       stats: DashboardStats(
         totalCases: all.length,

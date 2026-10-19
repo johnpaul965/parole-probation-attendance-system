@@ -74,7 +74,7 @@ class _ParoleeActivitiesScreenState extends State<ParoleeActivitiesScreen> {
                             (a) => ActivityCard(
                               activity: a,
                               subtitle: a.officerName != null
-                                  ? 'Officer: ${a.officerName} • Show QR to officer'
+                                  ? 'Officer: ${a.officerName} · Show QR to officer'
                                   : 'Show QR to officer',
                               onTap: () => context.push('/parolee/activities/${a.id}', extra: a),
                             ),

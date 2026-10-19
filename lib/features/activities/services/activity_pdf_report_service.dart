@@ -29,15 +29,14 @@ class ActivityPdfReportService {
     List<ActivityAttendanceRecord> attendance = const [],
   }) async {
     final doc = pw.Document();
-    final generated = DateFormat('MMMM d, yyyy – h:mm a').format(DateTime.now());
-    final dateFmt = DateFormat('MMM d, yyyy • h:mm a');
+    final generated = DateFormat('MMMM d, yyyy · h:mm a').format(DateTime.now());
+    final dateFmt = DateFormat('MMM d, yyyy · h:mm a');
 
     final total = activities.length;
     final ongoing = activities.where((a) => a.status == ActivityStatus.ongoing).length;
     final completed = activities.where((a) => a.status == ActivityStatus.completed).length;
     final missed = activities.where((a) => a.status == ActivityStatus.missed).length;
     final pending = activities.where((a) => a.status == ActivityStatus.pending).length;
-
     final present = attendance.where((r) => r.status == ActivityParticipationStatus.present).length;
     final late = attendance.where((r) => r.status == ActivityParticipationStatus.late).length;
     final absent = attendance.where((r) => r.status == ActivityParticipationStatus.absent).length;

@@ -8,25 +8,15 @@ import 'package:last/features/shared/models/attendance_record.dart';
 
 class LiveStatsService {
   LiveStatsService({FirebaseFirestore? firestore})
-      : _db = firestore ?? _safeInitFirestore();
+      : _db = firestore ?? FirebaseFirestore.instance;
 
-  static FirebaseFirestore? _safeInitFirestore() {
-    if (!FirebaseConfig.canUseFirestore) return null;
-    try {
-      return FirebaseFirestore.instance;
-    } catch (_) {
-      return null;
-    }
-  }
-
-  final FirebaseFirestore? _db;
+  final FirebaseFirestore _db;
 
   Future<void> publish(String officerId, List<ParoleeSummary> parolees) async {
-    final db = _db;
-    if (db == null || !FirebaseConfig.canUseFirestore || officerId.isEmpty) return;
+    if (!FirebaseConfig.canUseFirestore || officerId.isEmpty) return;
     try {
       final live = LiveStats.fromDashboard(parolees);
-      await db.collection(FirestoreCollections.liveStats).doc(officerId).set(
+      await _db.collection(FirestoreCollections.liveStats).doc(officerId).set(
             live.toMap(),
             SetOptions(merge: true),
           );
@@ -44,10 +34,9 @@ class LiveStatsService {
     required String paroleeId,
     required AttendanceStatus status,
   }) async {
-    final db = _db;
-    if (db == null || !FirebaseConfig.canUseFirestore) return;
+    if (!FirebaseConfig.canUseFirestore) return;
     try {
-      await db.collection(FirestoreCollections.users).doc(paroleeId).set({
+      await _db.collection(FirestoreCollections.users).doc(paroleeId).set({
         'todayStatus': status.name,
         'statusUpdatedAt': FieldValue.serverTimestamp(),
       }, SetOptions(merge: true));
@@ -57,11 +46,10 @@ class LiveStatsService {
   }
 
   Stream<LiveStats?> watchOfficer(String officerId) {
-    final db = _db;
-    if (db == null || !FirebaseConfig.canUseFirestore || officerId.isEmpty) {
+    if (!FirebaseConfig.canUseFirestore || officerId.isEmpty) {
       return Stream.value(null);
     }
-    return db.collection(FirestoreCollections.liveStats).doc(officerId).snapshots().map((snap) {
+    return _db.collection(FirestoreCollections.liveStats).doc(officerId).snapshots().map((snap) {
       if (!snap.exists || snap.data() == null) return null;
       try {
         return LiveStats.fromMap(snap.data()!);
@@ -73,11 +61,10 @@ class LiveStatsService {
   }
 
   Stream<List<LiveStats>> watchAll() {
-    final db = _db;
-    if (db == null || !FirebaseConfig.canUseFirestore) {
+    if (!FirebaseConfig.canUseFirestore) {
       return Stream.value([]);
     }
-    return db.collection(FirestoreCollections.liveStats).snapshots().map((snap) {
+    return _db.collection(FirestoreCollections.liveStats).snapshots().map((snap) {
       final list = <LiveStats>[];
       for (final doc in snap.docs) {
         try {

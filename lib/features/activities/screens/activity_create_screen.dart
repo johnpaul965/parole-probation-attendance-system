@@ -40,13 +40,11 @@ class _ActivityCreateScreenState extends State<ActivityCreateScreen> {
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
     if (date == null || !mounted) return;
-
     final time = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.fromDateTime(_schedule),
     );
     if (time == null || !mounted) return;
-
     setState(() {
       _schedule = DateTime(date.year, date.month, date.day, time.hour, time.minute);
     });
@@ -93,6 +91,7 @@ class _ActivityCreateScreenState extends State<ActivityCreateScreen> {
   @override
   Widget build(BuildContext context) {
     final parolees = context.watch<DashboardProvider>().parolees;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(title: const Text('Create Activity')),

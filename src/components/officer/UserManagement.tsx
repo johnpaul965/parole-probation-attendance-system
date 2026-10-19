@@ -59,6 +59,7 @@ export const UserManagement: React.FC = () => {
   const handleSaveGeofence = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedParolee) return;
+
     assignGeofence({
       paroleeId: selectedParolee.id,
       name: gfName.trim() || 'Monitoring Area',
@@ -67,6 +68,7 @@ export const UserManagement: React.FC = () => {
       radiusMeters: parseFloat(gfRadius) || APP_CONFIG.defaultGeofenceRadiusMeters,
       isActive: true,
     });
+
     setShowGeofenceModal(false);
   };
 
@@ -88,7 +90,7 @@ export const UserManagement: React.FC = () => {
         <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-xl">
           <button
             onClick={() => setRoleFilter('all')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
               roleFilter === 'all' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -96,7 +98,7 @@ export const UserManagement: React.FC = () => {
           </button>
           <button
             onClick={() => setRoleFilter('officer')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
               roleFilter === 'officer' ? 'bg-white text-blue-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -104,7 +106,7 @@ export const UserManagement: React.FC = () => {
           </button>
           <button
             onClick={() => setRoleFilter('parolee')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
               roleFilter === 'parolee' ? 'bg-white text-indigo-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -155,7 +157,7 @@ export const UserManagement: React.FC = () => {
                     </span>
                     <button
                       onClick={() => toggleUserActive(u.id, !u.isActive)}
-                      className={`w-8 h-4 rounded-full transition-colors relative p-0.5 cursor-pointer ${
+                      className={`w-8 h-4 rounded-full transition-colors relative p-0.5 ${
                         u.isActive ? 'bg-emerald-500' : 'bg-slate-300'
                       }`}
                     >
@@ -241,7 +243,7 @@ export const UserManagement: React.FC = () => {
                         setSelectedParolee(u);
                         setShowAssignOfficerModal(true);
                       }}
-                      className="flex-1 py-1.5 px-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-semibold rounded-lg transition-colors text-center cursor-pointer"
+                      className="flex-1 py-1.5 px-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-semibold rounded-lg transition-colors text-center"
                     >
                       Officer
                     </button>
@@ -250,7 +252,7 @@ export const UserManagement: React.FC = () => {
                         setSelectedParolee(u);
                         setShowAssignTrackerModal(true);
                       }}
-                      className="flex-1 py-1.5 px-2 bg-blue-50 hover:bg-blue-100 text-blue-700 text-[11px] font-semibold rounded-lg transition-colors text-center cursor-pointer"
+                      className="flex-1 py-1.5 px-2 bg-blue-50 hover:bg-blue-100 text-blue-700 text-[11px] font-semibold rounded-lg transition-colors text-center"
                     >
                       Tracker
                     </button>
@@ -259,7 +261,7 @@ export const UserManagement: React.FC = () => {
                         setSelectedParolee(u);
                         setShowGeofenceModal(true);
                       }}
-                      className="flex-1 py-1.5 px-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-[11px] font-semibold rounded-lg transition-colors text-center cursor-pointer"
+                      className="flex-1 py-1.5 px-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-[11px] font-semibold rounded-lg transition-colors text-center"
                     >
                       Geofence
                     </button>
@@ -267,11 +269,12 @@ export const UserManagement: React.FC = () => {
                 ) : (
                   <span className="text-xs text-slate-400 italic">Officer Account</span>
                 )}
+
                 {currentUser?.id !== u.id && (
                   <button
                     onClick={() => setShowDeleteConfirm(u)}
                     title="Remove user"
-                    className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors ml-auto cursor-pointer"
+                    className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors ml-auto"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -288,6 +291,7 @@ export const UserManagement: React.FC = () => {
           <div className="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-150">
             <h3 className="font-bold text-base text-slate-900">Assign Officer</h3>
             <p className="text-xs text-slate-500 mt-1">Select officer for {selectedParolee.fullName}</p>
+
             <div className="mt-4 space-y-2 max-h-60 overflow-y-auto">
               {officers.map((o) => (
                 <button
@@ -296,7 +300,7 @@ export const UserManagement: React.FC = () => {
                     assignOfficer(selectedParolee.id, o.id);
                     setShowAssignOfficerModal(false);
                   }}
-                  className={`w-full p-3 rounded-xl text-left border flex items-center justify-between text-xs transition-colors cursor-pointer ${
+                  className={`w-full p-3 rounded-xl text-left border flex items-center justify-between text-xs transition-colors ${
                     selectedParolee.officerId === o.id
                       ? 'bg-blue-50 border-blue-500 font-semibold text-blue-900'
                       : 'border-slate-200 hover:bg-slate-50'
@@ -310,6 +314,7 @@ export const UserManagement: React.FC = () => {
                 </button>
               ))}
             </div>
+
             <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
               {selectedParolee.officerId && (
                 <button
@@ -317,14 +322,14 @@ export const UserManagement: React.FC = () => {
                     removeOfficer(selectedParolee.id);
                     setShowAssignOfficerModal(false);
                   }}
-                  className="text-xs text-rose-600 hover:text-rose-800 font-semibold cursor-pointer"
+                  className="text-xs text-rose-600 hover:text-rose-800 font-semibold"
                 >
                   Remove Officer
                 </button>
               )}
               <button
                 onClick={() => setShowAssignOfficerModal(false)}
-                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-semibold ml-auto cursor-pointer"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-semibold ml-auto"
               >
                 Cancel
               </button>
@@ -339,6 +344,7 @@ export const UserManagement: React.FC = () => {
           <div className="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-150">
             <h3 className="font-bold text-base text-slate-900">Assign GPS Tracker</h3>
             <p className="text-xs text-slate-500 mt-1">Bind wearable beacon to {selectedParolee.fullName}</p>
+
             <div className="mt-4 space-y-2 max-h-60 overflow-y-auto">
               {trackers.map((t) => {
                 const isCurrent = t.paroleeId === selectedParolee.id;
@@ -349,7 +355,7 @@ export const UserManagement: React.FC = () => {
                       assignTracker(t.id, selectedParolee.id);
                       setShowAssignTrackerModal(false);
                     }}
-                    className={`w-full p-3 rounded-xl text-left border flex items-center justify-between text-xs transition-colors cursor-pointer ${
+                    className={`w-full p-3 rounded-xl text-left border flex items-center justify-between text-xs transition-colors ${
                       isCurrent
                         ? 'bg-blue-50 border-blue-500 font-semibold text-blue-900'
                         : 'border-slate-200 hover:bg-slate-50'
@@ -367,6 +373,7 @@ export const UserManagement: React.FC = () => {
                 );
               })}
             </div>
+
             <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
               {selectedParolee.trackerId && (
                 <button
@@ -374,14 +381,14 @@ export const UserManagement: React.FC = () => {
                     unassignTracker(selectedParolee.trackerId!);
                     setShowAssignTrackerModal(false);
                   }}
-                  className="text-xs text-rose-600 hover:text-rose-800 font-semibold cursor-pointer"
+                  className="text-xs text-rose-600 hover:text-rose-800 font-semibold"
                 >
                   Unbind Tracker
                 </button>
               )}
               <button
                 onClick={() => setShowAssignTrackerModal(false)}
-                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-semibold ml-auto cursor-pointer"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-semibold ml-auto"
               >
                 Cancel
               </button>
@@ -399,6 +406,7 @@ export const UserManagement: React.FC = () => {
           >
             <h3 className="font-bold text-base text-slate-900">Assign Geofence Zone</h3>
             <p className="text-xs text-slate-500 mt-1">Configure boundary for {selectedParolee.fullName}</p>
+
             <div className="mt-4 space-y-3">
               <div>
                 <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Zone Name</label>
@@ -410,6 +418,7 @@ export const UserManagement: React.FC = () => {
                   required
                 />
               </div>
+
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Center Lat</label>
@@ -434,6 +443,7 @@ export const UserManagement: React.FC = () => {
                   />
                 </div>
               </div>
+
               <div>
                 <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Radius (Meters)</label>
                 <input
@@ -448,17 +458,18 @@ export const UserManagement: React.FC = () => {
                 </span>
               </div>
             </div>
+
             <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-end gap-2">
               <button
                 type="button"
                 onClick={() => setShowGeofenceModal(false)}
-                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-semibold cursor-pointer"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-semibold"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold transition-colors cursor-pointer"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold transition-colors"
               >
                 Save Geofence
               </button>
@@ -482,7 +493,7 @@ export const UserManagement: React.FC = () => {
             <div className="mt-5 flex items-center justify-end gap-2">
               <button
                 onClick={() => setShowDeleteConfirm(null)}
-                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-semibold cursor-pointer"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-semibold"
               >
                 Cancel
               </button>
@@ -491,7 +502,7 @@ export const UserManagement: React.FC = () => {
                   deleteUser(showDeleteConfirm.id);
                   setShowDeleteConfirm(null);
                 }}
-                className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold transition-colors cursor-pointer"
+                className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold transition-colors"
               >
                 Remove User
               </button>

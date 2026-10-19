@@ -23,6 +23,7 @@ class AdminDeviceController extends Controller
     public function index(): JsonResponse
     {
         $devices = Device::with('activeAssignment')->orderBy('device_id')->get();
+
         return response()->json([
             'data' => $devices->map(fn (Device $d) => $this->formatDevice($d)),
         ]);
@@ -51,6 +52,7 @@ class AdminDeviceController extends Controller
     public function show(string $deviceId): JsonResponse
     {
         $device = Device::with('activeAssignment')->where('device_id', $deviceId)->firstOrFail();
+
         return response()->json(['data' => $this->formatDevice($device)]);
     }
 

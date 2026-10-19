@@ -54,10 +54,11 @@ export const ProfileView: React.FC = () => {
                 <BadgeCheck className="w-5 h-5 text-blue-600" />
               </div>
               <p className="text-xs text-slate-500 font-medium">
-                {isOfficer ? 'Probation & Parole Officer II' : `Parolee • Case ${currentUser.caseNumber || 'Active'}`}
+                {isOfficer ? 'Probation & Parole Officer II' : `Parolee · Case ${currentUser.caseNumber || 'Active'}`}
               </p>
             </div>
           </div>
+
           <span
             className={`self-start sm:self-auto text-xs font-semibold px-3 py-1 rounded-full capitalize ${
               isOfficer ? 'bg-blue-50 text-blue-700' : 'bg-indigo-50 text-indigo-700'
@@ -82,6 +83,7 @@ export const ProfileView: React.FC = () => {
                 <span className="font-semibold text-slate-800">{currentUser.email}</span>
               </div>
             </div>
+
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-center gap-3">
               <Phone className="w-4 h-4 text-slate-400" />
               <div>
@@ -89,6 +91,7 @@ export const ProfileView: React.FC = () => {
                 <span className="font-semibold text-slate-800">{currentUser.phone || '+63 920 123 4567'}</span>
               </div>
             </div>
+
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-center gap-3">
               <MapPin className="w-4 h-4 text-slate-400" />
               <div>
@@ -96,6 +99,7 @@ export const ProfileView: React.FC = () => {
                 <span className="font-semibold text-slate-800">{currentUser.department || 'District 4 - Tacloban'}</span>
               </div>
             </div>
+
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-center gap-3">
               <Shield className="w-4 h-4 text-slate-400" />
               <div>
@@ -119,6 +123,7 @@ export const ProfileView: React.FC = () => {
                   <span className="font-semibold text-slate-800">{supervision.label}</span>
                 </div>
               </div>
+
               <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-center gap-3">
                 <Radio className="w-4 h-4 text-slate-400" />
                 <div>
@@ -128,6 +133,7 @@ export const ProfileView: React.FC = () => {
                   </span>
                 </div>
               </div>
+
               <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-center gap-3">
                 <User className="w-4 h-4 text-slate-400" />
                 <div>
@@ -135,6 +141,7 @@ export const ProfileView: React.FC = () => {
                   <span className="font-semibold text-slate-800">{assignedOfficer?.fullName || 'Maria Santos'}</span>
                 </div>
               </div>
+
               <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-slate-400" />
                 <div>

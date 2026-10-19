@@ -35,10 +35,12 @@ class _ActivityDetailScreenState extends State<ActivityDetailScreen> {
   void _startListeners() {
     final user = context.read<AuthProvider>().user;
     if (user == null) return;
+
     final activities = context.read<ActivityProvider>();
     if (user.role == UserRole.parolee) {
       activities.listenForParolee(user.id);
     }
+
     final attendance = context.read<ActivityAttendanceProvider>();
     if (user.role == UserRole.officer) {
       attendance.listenForActivity(widget.activity.id);
@@ -57,6 +59,7 @@ class _ActivityDetailScreenState extends State<ActivityDetailScreen> {
     final matches =
         context.read<ActivityProvider>().activities.where((a) => a.id == widget.activity.id);
     final live = matches.isNotEmpty ? matches.first : widget.activity;
+
     await context.read<ActivityAttendanceProvider>().loadParoleeQr(
           activity: live,
           parolee: user,
@@ -76,7 +79,7 @@ class _ActivityDetailScreenState extends State<ActivityDetailScreen> {
     final attendance = context.watch<ActivityAttendanceProvider>();
     final activityRecords =
         attendance.records.where((r) => r.activityId == live.id).toList();
-    final dateFmt = DateFormat('EEEE, MMMM d, yyyy • h:mm a');
+    final dateFmt = DateFormat('EEEE, MMMM d, yyyy · h:mm a');
     final isOfficer = user.role == UserRole.officer;
     final isParolee = user.role == UserRole.parolee;
     final myRecord = isParolee ? attendance.recordFor(live.id, user.id) : null;

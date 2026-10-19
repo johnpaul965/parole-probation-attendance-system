@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:last/core/constants/firestore_collections.dart';
 import 'package:last/core/utils/firebase_config.dart';
@@ -85,6 +86,7 @@ class FirebaseNotificationService implements NotificationService {
 /// In-app notification list for demo / mock mode (no Firestore).
 class InMemoryNotificationService implements NotificationService {
   InMemoryNotificationService();
+
   static final InMemoryNotificationService instance = InMemoryNotificationService();
 
   final List<NotificationModel> _items = [];

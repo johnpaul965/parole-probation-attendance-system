@@ -1,8 +1,6 @@
 #ifndef BATTERY_SERVICE_H
 #define BATTERY_SERVICE_H
 
-#include <Arduino.h>
-
 class BatteryService {
 public:
   void begin(int adcPin) { _pin = adcPin; }

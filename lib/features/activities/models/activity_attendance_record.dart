@@ -34,7 +34,7 @@ class ActivityAttendanceRecord {
     required this.id,
     required this.activityId,
     required this.paroleeId,
-    this.paroleeName = 'Parolee',
+    required this.paroleeName,
     required this.officerId,
     required this.status,
     required this.scannedAt,
